@@ -2,11 +2,11 @@ package com.zachnickell.platform;
 
 import javax.swing.*;
 
+import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.Level;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -25,6 +25,7 @@ public class Platform extends Canvas implements Runnable{
 	public static long lastDeltaTime;
 	
 	private Level level;
+	Sprites sprites;
 	
 	public static String getTitle(){
 		String title = NAME + " " + VERSION;
@@ -43,6 +44,7 @@ public class Platform extends Canvas implements Runnable{
 			addKeyListener(new Input());
 			running = true;
 			requestFocus();
+			sprites = new Sprites();
 			level = new Level();
 			new Thread(this).start();
 		}

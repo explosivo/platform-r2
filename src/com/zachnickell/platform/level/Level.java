@@ -5,18 +5,16 @@ import java.awt.Rectangle;
 
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.*;
-import com.zachnickell.platform.entity.vehicle.*;
 import com.zachnickell.platform.entity.tile.*;
 
 public class Level {
 	//screen size is 20 x 15 @(16x16)size tiles
-	int width = 10;
-	int height = 10;
+	int width = 50;
+	int height = 50;
 	int spawnX = width/2;
 	int spawnY = height/2;
 	Player player;
 	Rock rock;
-	SpaceShip ss;
 	PlayerGui pg;
 	Tile[][] tiles;
 	int[][] tileGrid = new int[width][height];
@@ -25,7 +23,6 @@ public class Level {
 		rock = new Rock();
 		tiles = new Tile[width][height];
 		pg = new PlayerGui(player);
-		ss = new SpaceShip(8,8);
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
 				tileGrid[0][y] = 2;
@@ -46,16 +43,15 @@ public class Level {
 		}
 		//rock.render(g);
 		player.render(g);
-		ss.render(g);
 		pg.render(gg);
 		gg.dispose();
 	}
 	public void update(int delta){
 		player.update(delta);
 		//rock.update(delta);
-		ss.update(delta);
 		createLevel();
 		CollisionDetect(delta);
+		shouldRender(delta);
 	}
 	
 	public void createLevel(){
@@ -76,6 +72,21 @@ public class Level {
 		}
 	}
 	
+	public void shouldRender(int delta){
+		Rectangle r1 = new Rectangle((int)player.x - (Platform.WIDTH)/2 + 5,(int)player.y - (Platform.HEIGHT)/2 + 25, Platform.WIDTH, Platform.HEIGHT - 30);
+		Rectangle r2;
+		for (int x = 0; x < width; x++){
+			for (int y = 0; y < height; y++){
+				r2 = tiles[x][y].getBounds();
+				if (r1.intersects(r2)){
+					tiles[x][y].shouldRender();
+				}
+				else tiles[x][y].shouldNotRender();
+			}
+		}
+		
+	}
+	
 	public void CollisionDetect(int delta){
 		Rectangle r1;
 		Rectangle r2;
@@ -86,9 +97,6 @@ public class Level {
 		}
 		else
 			player.fixMovement();*/
-		if (r1.intersects(ss.getBounds())){
-			ss.collision(player, delta);
-		}
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
 				r2 = tiles[x][y].getBounds();

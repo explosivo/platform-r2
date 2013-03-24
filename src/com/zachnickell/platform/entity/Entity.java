@@ -30,12 +30,22 @@ public class Entity {
 	public boolean canMoveRight = true;
 	public int level;
 	public int giveXP;
+	public boolean isOnScreen = true;
 	
 	long lastTime;
 	
 	public void render(Graphics g){
-		g.setColor(c);
-		g.fillRect((int) x, (int) y, w, h);
+		if (isOnScreen){
+			g.setColor(c);
+			g.fillRect((int) x, (int) y, w, h);
+		}
+	}
+	
+	public void shouldRender(){
+		isOnScreen = true;
+	}
+	public void shouldNotRender(){
+		isOnScreen = false;
 	}
 	
 	public void update(int delta){

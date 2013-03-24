@@ -15,8 +15,8 @@ public class Player extends ControllableEntity{
 		maxSpeed = .15;
 		speed = 0;
 		c = Color.red;
-		w = 10;
-		h = 10;
+		w = 16;
+		h = 16;
 		speed = 0.08;
 		isSolid = true;
 		this.x = (double)spawnX*16;
@@ -29,6 +29,7 @@ public class Player extends ControllableEntity{
 	
 	public void update(int delta){
 		if (isAlive()){
+			isOnScreen = true;
 			move(delta);
 			if (xp >= maxXP){
 				xp -= maxXP;

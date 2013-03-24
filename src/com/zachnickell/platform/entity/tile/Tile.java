@@ -6,17 +6,13 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.zachnickell.platform.entity.Entity;
+import com.zachnickell.platform.gfx.Sprites;
 
 public class Tile extends Entity{
 	int x;
 	int y;
 	public static int size = 16;
 	public BufferedImage sprite = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-	public static BufferedImage defaultSprite = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-	public static BufferedImage snow = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-	public static BufferedImage dirt = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-	public static BufferedImage spaceship = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-	public static BufferedImage heart = new BufferedImage(size, size, BufferedImage.TRANSLUCENT);
 	public int id;
 	public static final int DEFAULT = 0;
 	public static final int SNOW = 1;
@@ -24,62 +20,17 @@ public class Tile extends Entity{
 	int w = size;
 	int h = size;
 	public Tile(int x, int y){
-		sprite = defaultSprite;
+		sprite = Sprites.defaultSprite;
 		this.x = x;
 		this.y = y;
-		makeDefaultSprite();
-		makeSnowSprite();
-		makeDirtSprite();
-		makeHeartSprite();
 	}
 	
 	public void render(Graphics g){
-		g.drawImage(sprite, x*size, y*size, null);
+		if(isOnScreen){
+				g.drawImage(sprite, x*size, y*size, null);
 		}
-	
-	public void makeDefaultSprite(){
-		Graphics g = defaultSprite.createGraphics();
-		g.setColor(Color.white);
-		g.fillRect(0*8, 0*8, 8, 8);
-		g.fillRect(0*8+8, 0*8+8, 8, 8);
-		g.setColor(Color.magenta);
-		g.fillRect(0*8+8, 0*8, 8, 8);
-		g.fillRect(0*8, 0*8+8, 8, 8);
-		g.dispose();
-	}
-	public void makeSnowSprite(){
-		Graphics g = snow.createGraphics();
-		g.setColor(Color.GRAY);
-		g.fillRect(0*8, 0*8, 8, 8);
-		g.fillRect(0*8+8, 0*8+8, 8, 8);
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0*8+8, 0*8, 8, 8);
-		g.fillRect(0*8, 0*8+8, 8, 8);
-		g.dispose();
-	}
-	public void makeDirtSprite(){
-		Graphics g = dirt.createGraphics();
-		g.setColor(Color.ORANGE);
-		g.fillRect(0*8, 0*8, 8, 8);
-		g.fillRect(0*8+8, 0*8+8, 8, 8);
-		g.setColor(Color.BLUE);
-		g.fillRect(0*8+8, 0*8, 8, 8);
-		g.fillRect(0*8, 0*8+8, 8, 8);
-		g.dispose();
 	}
 	
-	public void makeHeartSprite(){
-		Graphics g = heart.createGraphics();
-		g.setColor(Color.RED);
-		g.fillOval(0, 0, size, size);
-		g.dispose();
-	}
-	public void makeSpaceShipSprite(){
-		Graphics g = spaceship.createGraphics();
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, size, size);
-		g.dispose();
-	}
 	
 	/*public void collision(Entity e, int delta){
 		System.out.printf("%d, %d\n", x, y);
