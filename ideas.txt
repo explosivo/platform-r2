@@ -1,0 +1,15 @@
+16 bit looking graphics
+
+
+
+rip off of explorers guild
+
+easily moddable... so weapon/ability/sprite file loading?
+
+mindless, infinite enemies running in, you kill them,
+character leveling, earn abilities/upgrades, enemies get harder, 
+maybe progress through game levels - some set formula for increasing difficulty with prompt..
+eh or with each increased character level the environment changes in some formulated way
+no level cap
+
+save feature? meh.
