@@ -1,5 +1,6 @@
 package com.zachnickell.platform.level;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -10,8 +11,11 @@ import com.zachnickell.platform.entity.tile.*;
 public class Level {
 	// screen size is 20 x 15 @(16x16)size tiles
 	// 50 x 50 map is highest efficient running size so far 3/24/13
-	int width = 10;
-	int height = 10;
+	// 256 x 256 map at 56% cpu and ~30 fps 				3/25/13
+	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
+	
+	int width = 175;
+	int height = 175;
 	int spawnX = width / 2;
 	int spawnY = height / 2;
 	Player player;
@@ -34,6 +38,12 @@ public class Level {
 			}
 		}
 
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				tiles[x][y] = new Tile(x, y);
+			}
+		}
+
 	}
 
 	public void render(Graphics g) {
@@ -46,6 +56,10 @@ public class Level {
 			}
 		}
 		// rock.render(g);
+		g.setColor(Color.red);
+		g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 20, (int) player.y
+				- (Platform.HEIGHT) / 2 + 40, Platform.WIDTH - 20,
+				Platform.HEIGHT - 50);
 		player.render(g);
 		pg.render(gg);
 		gg.dispose();
@@ -62,22 +76,25 @@ public class Level {
 	public void createLevel() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (tileGrid[x][y] == Tile.DEFAULT) {
-					tiles[x][y] = new Tile(x, y);
-				} else if (tileGrid[x][y] == Tile.SNOW) {
-					tiles[x][y] = new Snow(x, y);
-				} else if (tileGrid[x][y] == Tile.DIRT) {
-					tiles[x][y] = new Dirt(x, y);
-				} else
-					tiles[x][y] = new Tile(x, y);
+				if (tiles[x][y].isOnScreen) {
+					if (tileGrid[x][y] == Tile.DEFAULT) {
+						tiles[x][y] = new Tile(x, y);
+					} else if (tileGrid[x][y] == Tile.SNOW) {
+						tiles[x][y] = new Snow(x, y);
+					} else if (tileGrid[x][y] == Tile.DIRT) {
+						tiles[x][y] = new Dirt(x, y);
+					} else
+						tiles[x][y] = new Tile(x, y);
+				}
 			}
 		}
 	}
 
 	public void shouldRender(int delta) {
-		Rectangle r1 = new Rectangle((int) player.x - (Platform.WIDTH) / 2 + 5,
-				(int) player.y - (Platform.HEIGHT) / 2 + 25, Platform.WIDTH,
-				Platform.HEIGHT - 30);
+		Rectangle r1 = new Rectangle(
+				(int) player.x - (Platform.WIDTH) / 2 + 20, (int) player.y
+						- (Platform.HEIGHT) / 2 + 40, Platform.WIDTH - 20,
+				Platform.HEIGHT - 50);
 		Rectangle r2;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {

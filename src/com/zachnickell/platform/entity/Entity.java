@@ -29,7 +29,7 @@ public class Entity {
 	public boolean canMoveRight = true;
 	public int level;
 	public int giveXP;
-	public boolean isOnScreen = false;
+	public boolean isOnScreen = true;
 
 	long lastTime;
 

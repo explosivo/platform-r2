@@ -15,10 +15,10 @@ public class Platform extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.1.2";
+	public static final String VERSION = "Pre-Alpha 0.1.2a";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 3;
+	public static final int SCALE = 2;
 	public static int FRAMES = 0;
 	private Graphics dbg;
 	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT,
