@@ -1,4 +1,3 @@
-//github eclipse test
 package com.zachnickell.platform;
 
 import javax.swing.*;
@@ -12,35 +11,36 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
-public class Platform extends Canvas implements Runnable{
+public class Platform extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.1.1";
+	public static final String VERSION = "Pre-Alpha 0.1.2";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	public static int FRAMES = 0;
 	private Graphics dbg;
-	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT,
+			BufferedImage.TYPE_INT_RGB);
 	public static long lastDeltaTime;
-	
+
 	private Level level;
 	Sprites sprites;
-	
-	public static String getTitle(){
+
+	public static String getTitle() {
 		String title = NAME + " " + VERSION;
 		return title;
 	}
-	
-	public int getDelta(){
+
+	public int getDelta() {
 		int delta = (int) (System.currentTimeMillis() - lastDeltaTime);
 		lastDeltaTime = System.currentTimeMillis();
 		return delta;
 	}
-	
-	public void start(){
-		if(!running){
+
+	public void start() {
+		if (!running) {
 			getDelta();
 			addKeyListener(new Input());
 			running = true;
@@ -50,52 +50,55 @@ public class Platform extends Canvas implements Runnable{
 			new Thread(this).start();
 		}
 	}
-	
-	public void run(){
+
+	public void run() {
 		long lastTime = System.currentTimeMillis();
-		while(running){
+		while (running) {
 			int delta = getDelta();
-			if(!hasFocus()){
+			if (!hasFocus()) {
 				Input.releaseKeys();
 			}
 			update(delta);
 			render();
 			drawScreen();
-			if(System.currentTimeMillis() - lastTime >= 1000){
+			if (System.currentTimeMillis() - lastTime >= 1000) {
 				System.out.printf("fps: %d\n", FRAMES);
 				lastTime += 1000;
 				FRAMES = 0;
 			}
-			try{
+			try {
 				Thread.sleep(10);
-			}catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	public void update(int delta){
+
+	public void update(int delta) {
 		level.update(delta);
 	}
-	public void render(){
+
+	public void render() {
 		dbg = img.createGraphics();
 		dbg.clearRect(0, 0, WIDTH, HEIGHT);
 		level.render(dbg);
 		Toolkit.getDefaultToolkit().sync();
 		dbg.dispose();
 	}
-	public void drawScreen(){
+
+	public void drawScreen() {
 		FRAMES++;
 		Graphics g = getGraphics();
 		g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
 	}
-	public static void gameOver(){
+
+	public static void gameOver() {
 		System.out.println("dead.");
 		running = false;
 	}
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		Platform platform = new Platform();
 		JFrame win = new JFrame(getTitle());
 		win.setLayout(new BorderLayout());

@@ -1,9 +1,10 @@
 package com.zachnickell.platform.entity;
+
 import java.awt.Color;
 
-public class Rock extends Entity{
+public class Rock extends Entity {
 
-	public Rock(){
+	public Rock() {
 		x = 20;
 		y = 20;
 		w = 20;
@@ -14,5 +15,4 @@ public class Rock extends Entity{
 		damage = 1;
 	}
 
-	
 }
