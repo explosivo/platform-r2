@@ -1,14 +1,20 @@
 package com.zachnickell.platform;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class Input implements KeyListener{
+
+public class Input implements KeyListener, MouseMotionListener, MouseListener{
 
 	public static boolean upPressed = false;
 	public static boolean downPressed = false;
 	public static boolean rightPressed = false;
 	public static boolean leftPressed = false;
+	public static int x, y;
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -48,6 +54,51 @@ public class Input implements KeyListener{
 			pressed = true;
 		}
 		return pressed;
+	}
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		x = (e.getX())/Platform.SCALE + 1;
+		y = (e.getY())/Platform.SCALE + 1;
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		x = (e.getX())/Platform.SCALE + 1;
+		y = (e.getY())/Platform.SCALE + 1;
+		//System.out.printf("(%d, %d)\n", x, y);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

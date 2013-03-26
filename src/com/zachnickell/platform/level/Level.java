@@ -2,6 +2,7 @@ package com.zachnickell.platform.level;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.zachnickell.platform.Platform;
@@ -14,8 +15,8 @@ public class Level {
 	// 256 x 256 map at 56% cpu and ~30 fps 				3/25/13
 	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
 	
-	int width = 175;
-	int height = 175;
+	int width = 50;
+	int height = 50;
 	int spawnX = width / 2;
 	int spawnY = height / 2;
 	Player player;
@@ -48,7 +49,8 @@ public class Level {
 
 	public void render(Graphics g) {
 		Graphics gg = g.create();
-		g.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
+		Graphics2D g2 = (Graphics2D) g;
+		g2.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
 				+ Platform.HEIGHT / 2 - 10);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -60,7 +62,7 @@ public class Level {
 		g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 20, (int) player.y
 				- (Platform.HEIGHT) / 2 + 40, Platform.WIDTH - 20,
 				Platform.HEIGHT - 50);
-		player.render(g);
+		player.render(g2);
 		pg.render(gg);
 		gg.dispose();
 	}

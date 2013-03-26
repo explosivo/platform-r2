@@ -15,16 +15,17 @@ public class Platform extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.1.2a";
+	public static final String VERSION = "Pre-Alpha 0.1.3";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	public static int FRAMES = 0;
 	private Graphics dbg;
 	private BufferedImage img = new BufferedImage(WIDTH, HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
 	public static long lastDeltaTime;
 
+	private Input input;
 	private Level level;
 	Sprites sprites;
 
@@ -42,7 +43,10 @@ public class Platform extends Canvas implements Runnable {
 	public void start() {
 		if (!running) {
 			getDelta();
-			addKeyListener(new Input());
+			input = new Input();
+			addKeyListener(input);
+			addMouseListener(input);
+			addMouseMotionListener(input);
 			running = true;
 			requestFocus();
 			sprites = new Sprites();

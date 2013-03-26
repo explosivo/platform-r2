@@ -5,7 +5,6 @@ import java.awt.Graphics;
 
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.Player;
-import com.zachnickell.platform.entity.tile.Tile;
 
 public class PlayerGui {
 	Player player;
