@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Random;
 
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.*;
@@ -15,11 +16,14 @@ public class Level {
 	// 256 x 256 map at 56% cpu and ~30 fps 				3/25/13
 	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
 	
-	int width = 50;
-	int height = 50;
+	Random r = new Random();
+	int width = 20;
+	int height = 20;
 	int spawnX = width / 2;
 	int spawnY = height / 2;
 	Player player;
+	int monsterNumber = 10;
+	Monster[] monsters = new Monster[monsterNumber];
 	Rock rock;
 	PlayerGui pg;
 	Tile[][] tiles;
@@ -27,6 +31,10 @@ public class Level {
 
 	public Level() {
 		player = new Player(spawnX, spawnY);
+		for (int m = 0; m < monsterNumber; m ++){
+			//System.out.println("!");
+			monsters[m] = new Monster(r.nextInt(width), r.nextInt(height), player, monsters);
+		}
 		rock = new Rock();
 		tiles = new Tile[width][height];
 		pg = new PlayerGui(player);
@@ -49,6 +57,7 @@ public class Level {
 
 	public void render(Graphics g) {
 		Graphics gg = g.create();
+		Graphics ggg = g.create();
 		Graphics2D g2 = (Graphics2D) g;
 		g2.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
 				+ Platform.HEIGHT / 2 - 10);
@@ -57,11 +66,14 @@ public class Level {
 				tiles[x][y].render(g);
 			}
 		}
+		for (int m = 0; m < monsterNumber; m ++){
+			monsters[m].render(g);
+		}
 		// rock.render(g);
 		g.setColor(Color.red);
-		g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 20, (int) player.y
-				- (Platform.HEIGHT) / 2 + 40, Platform.WIDTH - 20,
-				Platform.HEIGHT - 50);
+		g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
+				- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
+				Platform.HEIGHT - 29);
 		player.render(g2);
 		pg.render(gg);
 		gg.dispose();
@@ -69,10 +81,17 @@ public class Level {
 
 	public void update(int delta) {
 		player.update(delta);
+		for (int m = 0; m < monsterNumber; m ++){
+			monsters[m].update(delta);
+		}
 		// rock.update(delta);
 		createLevel();
 		shouldRender(delta);
-		CollisionDetect(delta);
+		CollisionDetect(player, delta);
+		for (int m = 0; m < monsterNumber; m ++){
+			CollisionDetect(monsters[m], delta);
+		}
+		//CollisionDetect(monster, delta);
 	}
 
 	public void createLevel() {
@@ -94,9 +113,9 @@ public class Level {
 
 	public void shouldRender(int delta) {
 		Rectangle r1 = new Rectangle(
-				(int) player.x - (Platform.WIDTH) / 2 + 20, (int) player.y
-						- (Platform.HEIGHT) / 2 + 40, Platform.WIDTH - 20,
-				Platform.HEIGHT - 50);
+				(int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
+				- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
+				Platform.HEIGHT - 29);
 		Rectangle r2;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -107,13 +126,20 @@ public class Level {
 					tiles[x][y].shouldNotRender();
 			}
 		}
+		for (int m = 0; m < monsterNumber; m++){
+			r2 = monsters[m].getBounds();
+			if (r1.intersects(r2)){
+				monsters[m].shouldRender();
+			} else
+				monsters[m].shouldNotRender();
+		}
 
 	}
 
-	public void CollisionDetect(int delta) {
+	public void CollisionDetect(Entity e, int delta) {
 		Rectangle r1;
 		Rectangle r2;
-		r1 = player.getBounds();
+		r1 = e.getBounds();
 		/*
 		 * r2 = rock.getBounds(); if (r1.intersects(r2)){ rock.collision(player,
 		 * delta); } else player.fixMovement();
@@ -122,7 +148,7 @@ public class Level {
 			for (int y = 0; y < height; y++) {
 				r2 = tiles[x][y].getBounds();
 				if (r1.intersects(r2)) {
-					tiles[x][y].collision(player, delta);
+					tiles[x][y].collision(e, delta);
 				}
 			}
 		}

@@ -43,7 +43,7 @@ public class Player extends ControllableEntity {
 
 	public void update(int delta) {
 		if (isAlive()) {
-			angle = Math.atan2( (y + h/2) - (Input.y + (int) y - 240/2 + h/2), (x + w/2) - (Input.x + (int) x - 320/2 + w/2) ) - Math.PI / 2;
+			angle = Math.atan2( (y + h/2) - (Input.y + y - 240/2 + h/2), (x + w/2) - (Input.x + x - 320/2 + w/2) ) - Math.PI / 2;
 			//System.out.println(angle);
 			isOnScreen = true;
 			move(delta);

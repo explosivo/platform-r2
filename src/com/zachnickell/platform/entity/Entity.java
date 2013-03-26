@@ -29,6 +29,7 @@ public class Entity {
 	public boolean canMoveRight = true;
 	public int level;
 	public int giveXP;
+	public long time;
 	public boolean isOnScreen = true;
 
 	long lastTime;
@@ -59,6 +60,7 @@ public class Entity {
 			alive = true;
 		return alive;
 	}
+
 
 	public void collision(Entity e, int delta) {
 		if (isOnScreen) {
