@@ -13,9 +13,9 @@ import com.zachnickell.platform.entity.tile.*;
 public class Level {
 	// screen size is 20 x 15 @(16x16)size tiles
 	// 50 x 50 map is highest efficient running size so far 3/24/13
-	// 256 x 256 map at 56% cpu and ~30 fps 				3/25/13
+	// 256 x 256 map at 56% cpu and ~30 fps 3/25/13
 	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
-	
+
 	Random r = new Random();
 	int width = 20;
 	int height = 20;
@@ -31,9 +31,10 @@ public class Level {
 
 	public Level() {
 		player = new Player(spawnX, spawnY);
-		for (int m = 0; m < monsterNumber; m ++){
-			//System.out.println("!");
-			monsters[m] = new Monster(r.nextInt(width), r.nextInt(height), player, monsters);
+		for (int m = 0; m < monsterNumber; m++) {
+			// System.out.println("!");
+			monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
+					player, monsters);
 		}
 		rock = new Rock();
 		tiles = new Tile[width][height];
@@ -66,7 +67,7 @@ public class Level {
 				tiles[x][y].render(g);
 			}
 		}
-		for (int m = 0; m < monsterNumber; m ++){
+		for (int m = 0; m < monsterNumber; m++) {
 			monsters[m].render(g);
 		}
 		// rock.render(g);
@@ -81,17 +82,17 @@ public class Level {
 
 	public void update(int delta) {
 		player.update(delta);
-		for (int m = 0; m < monsterNumber; m ++){
+		for (int m = 0; m < monsterNumber; m++) {
 			monsters[m].update(delta);
 		}
 		// rock.update(delta);
 		createLevel();
 		shouldRender(delta);
 		CollisionDetect(player, delta);
-		for (int m = 0; m < monsterNumber; m ++){
+		for (int m = 0; m < monsterNumber; m++) {
 			CollisionDetect(monsters[m], delta);
 		}
-		//CollisionDetect(monster, delta);
+		// CollisionDetect(monster, delta);
 	}
 
 	public void createLevel() {
@@ -114,7 +115,7 @@ public class Level {
 	public void shouldRender(int delta) {
 		Rectangle r1 = new Rectangle(
 				(int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
-				- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
+						- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
 				Platform.HEIGHT - 29);
 		Rectangle r2;
 		for (int x = 0; x < width; x++) {
@@ -126,9 +127,9 @@ public class Level {
 					tiles[x][y].shouldNotRender();
 			}
 		}
-		for (int m = 0; m < monsterNumber; m++){
+		for (int m = 0; m < monsterNumber; m++) {
 			r2 = monsters[m].getBounds();
-			if (r1.intersects(r2)){
+			if (r1.intersects(r2)) {
 				monsters[m].shouldRender();
 			} else
 				monsters[m].shouldNotRender();
@@ -150,6 +151,12 @@ public class Level {
 				if (r1.intersects(r2)) {
 					tiles[x][y].collision(e, delta);
 				}
+			}
+		}
+		for (int m = 0; m < monsterNumber; m++) {
+			r2 = monsters[m].getBounds();
+			if (r1.intersects(r2)) {
+				monsters[m].collision(e, delta);
 			}
 		}
 	}
