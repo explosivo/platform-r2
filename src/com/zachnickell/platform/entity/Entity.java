@@ -3,6 +3,7 @@ package com.zachnickell.platform.entity;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Entity {
 	public double x, y;
@@ -31,6 +32,7 @@ public class Entity {
 	public int giveXP;
 	public long time;
 	public boolean isOnScreen = true;
+	public BufferedImage sprite;
 
 	long lastTime;
 

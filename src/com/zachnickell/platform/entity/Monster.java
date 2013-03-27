@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import com.zachnickell.platform.Input;
+import com.zachnickell.platform.gfx.Sprites;
 
 public class Monster extends Entity {
 	Random r = new Random();
@@ -23,28 +24,29 @@ public class Monster extends Entity {
 		totalMonsters++;
 		this.monsters = monsters;
 		maxSpeed = .15;
-		speed = 0;
 		c = Color.BLUE;
-		w = 16;
-		h = 16;
+		w = 24;
+		h = 24;
 		speed = 0.50;
-		isSolid = true;
+		isSolid = false;
 		this.x = (double) spawnX * 16;
 		this.y = (double) spawnY * 16;
 		maxHealth = 2;
 		health = maxHealth;
 		this.player = player;
+		sprite = Sprites.zombie;
 	}
 
 	public void render(Graphics g) {
 		if (isOnScreen) {
 			Graphics2D gg = (Graphics2D) g.create();
-			gg.setColor(c);
+			//gg.setColor(c);
 			gg.rotate(angle, x + w / 2, y + h / 2);
-			gg.fillRect((int) x, (int) y, w, h);
-			gg.setColor(Color.red);
-			gg.drawLine((int) x + w / 2, (int) y + h / 2, (int) x + w / 2,
-					(int) y + h / 2 + 20);
+			gg.drawImage(sprite, (int)x, (int)y, w, h, null);
+			//gg.fillRect((int) x, (int) y, w, h);
+			//gg.setColor(Color.red);
+			//gg.drawLine((int) x + w / 2, (int) y + h / 2, (int) x + w / 2,
+					//(int) y + h / 2 + 20);
 		}
 	}
 
@@ -82,4 +84,10 @@ public class Monster extends Entity {
 			y += Math.cos(angle) * speed;
 		}
 	}
+	
+	public void collision (Entity e, int delta){
+		e.doesDamage(1);
+		System.out.println("hello");
+	}
+	
 }

@@ -22,12 +22,21 @@ public class Sprites {
 			BufferedImage.TYPE_INT_RGB);
 	public static BufferedImage heart = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
+	public static BufferedImage player = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage playerHurt = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage zombie = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
 
 	public Sprites() {
 		makeDefaultSprite();
 		makeSnowSprite();
 		makeDirtSprite();
 		makeHeartSprite();
+		makePlayerSprite();
+		makePlayerHurtSprite();
+		makeZombieSprite();
 	}
 
 	public BufferedImage getImage(String s) {
@@ -49,6 +58,18 @@ public class Sprites {
 		g.fillRect(0 * 8 + 8, 0 * 8, 8, 8);
 		g.fillRect(0 * 8, 0 * 8 + 8, 8, 8);
 		g.dispose();
+	}
+
+	public void makePlayerSprite() {
+		player = getImage("/joshfront.png");
+	}
+
+	public void makePlayerHurtSprite() {
+		playerHurt = getImage("/joshhurt.png");
+	}
+
+	public void makeZombieSprite() {
+		zombie = getImage("/zombie.png");
 	}
 
 	public void makeSnowSprite() {
