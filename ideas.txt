@@ -13,3 +13,9 @@ eh or with each increased character level the environment changes in some formul
 no level cap
 
 save feature? meh.
+
+--------3/27/13--------
+make an arena game, continue updating the arena play until it's pretty awesome
+evolve the arena into combat in an rpg with some plot line
+keep arena as a game mode
+eventually add pvp/multiplayer.. or not.. idk
