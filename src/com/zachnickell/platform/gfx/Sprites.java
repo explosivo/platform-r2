@@ -28,15 +28,44 @@ public class Sprites {
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage zombie = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
+	public static BufferedImage grass = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage leftWall = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage rightWall = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage topWall = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage bottomWall = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage cornerWallTL = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage cornerWallTR = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage cornerWallBL = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
+	public static BufferedImage cornerWallBR = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
 
 	public Sprites() {
 		makeDefaultSprite();
 		makeSnowSprite();
-		makeDirtSprite();
+		//makeDirtSprite();
 		makeHeartSprite();
 		makePlayerSprite();
 		makePlayerHurtSprite();
 		makeZombieSprite();
+		makeGrassSprite();
+		
+		
+		makeLeftWallSprite();
+		makeRightWallSprite();
+		makeTopWallSprite();
+		makeBottomWallSprite();
+		makeCornerWallTLSprite();
+		makeCornerWallTRSprite();
+		makeCornerWallBLSprite();
+		makeCornerWallBRSprite();
 	}
 
 	public BufferedImage getImage(String s) {
@@ -70,6 +99,35 @@ public class Sprites {
 
 	public void makeZombieSprite() {
 		zombie = getImage("/zombie.png");
+	}
+	
+	public void makeGrassSprite() {
+		defaultSprite = getImage("/floor.png");
+	}
+	
+	public void makeLeftWallSprite() {
+		leftWall = getImage("/leftWall.png");
+	}
+	public void makeRightWallSprite() {
+		rightWall = getImage("/rightWall.png");
+	}
+	public void makeTopWallSprite() {
+		topWall = getImage("/topWall.png");
+	}
+	public void makeBottomWallSprite() {
+		bottomWall = getImage("/bottomWall.png");
+	}
+	public void makeCornerWallTLSprite() {
+		cornerWallTL = getImage("/cornerWallTL.png");
+	}
+	public void makeCornerWallTRSprite() {
+		cornerWallTR = getImage("/cornerWallTR.png");
+	}
+	public void makeCornerWallBLSprite() {
+		cornerWallBL = getImage("/cornerWallBL.png");
+	}
+	public void makeCornerWallBRSprite() {
+		cornerWallBR = getImage("/cornerWallBR.png");
 	}
 
 	public void makeSnowSprite() {

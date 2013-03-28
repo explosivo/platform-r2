@@ -87,7 +87,6 @@ public class Monster extends Entity {
 	
 	public void collision (Entity e, int delta){
 		e.doesDamage(1);
-		System.out.println("hello");
 	}
 	
 }

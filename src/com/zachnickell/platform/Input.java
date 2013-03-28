@@ -10,11 +10,15 @@ import java.awt.event.MouseMotionListener;
 
 public class Input implements KeyListener, MouseMotionListener, MouseListener{
 
+	// keyboard switches/data
 	public static boolean upPressed = false;
 	public static boolean downPressed = false;
 	public static boolean rightPressed = false;
 	public static boolean leftPressed = false;
+	
+	//mouse switches/data
 	public static int x, y;
+	public static boolean mousePress = false;
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -91,13 +95,13 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		mousePress = true;
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		mousePress = false;
 		
 	}
 	

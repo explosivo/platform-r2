@@ -19,11 +19,14 @@ public class Tile extends Entity {
 	public static final int DIRT = 2;
 	int w = size;
 	int h = size;
+	int maxLevelWidth, maxLevelHeight;
 
-	public Tile(int x, int y) {
+	public Tile(int x, int y, int maxLevelWidth, int maxLevelHeight) {
 		sprite = Sprites.defaultSprite;
 		this.x = x;
 		this.y = y;
+		this.maxLevelWidth = maxLevelWidth;
+		this.maxLevelHeight = maxLevelHeight;
 	}
 
 	public void render(Graphics g) {

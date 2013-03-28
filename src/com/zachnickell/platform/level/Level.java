@@ -17,8 +17,8 @@ public class Level {
 	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
 
 	Random r = new Random();
-	int width = 20;
-	int height = 20;
+	int width = 30;
+	int height = 15;
 	int spawnX = width / 2;
 	int spawnY = height / 2;
 	Player player;
@@ -50,7 +50,7 @@ public class Level {
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				tiles[x][y] = new Tile(x, y);
+				tiles[x][y] = new Tile(x, y, width, height);
 			}
 		}
 
@@ -71,10 +71,10 @@ public class Level {
 			monsters[m].render(g);
 		}
 		// rock.render(g);
-		g.setColor(Color.red);
-		g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
-				- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
-				Platform.HEIGHT - 29);
+		//g.setColor(Color.red);
+		//g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
+		//		- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
+		//		Platform.HEIGHT - 29);
 		player.render(g2);
 		pg.render(gg);
 		gg.dispose();
@@ -100,13 +100,13 @@ public class Level {
 			for (int y = 0; y < height; y++) {
 				if (tiles[x][y].isOnScreen) {
 					if (tileGrid[x][y] == Tile.DEFAULT) {
-						tiles[x][y] = new Tile(x, y);
+						tiles[x][y] = new Tile(x, y, width, height);
 					} else if (tileGrid[x][y] == Tile.SNOW) {
-						tiles[x][y] = new Snow(x, y);
+						tiles[x][y] = new Snow(x, y, width, height);
 					} else if (tileGrid[x][y] == Tile.DIRT) {
-						tiles[x][y] = new Dirt(x, y);
+						tiles[x][y] = new Dirt(x, y, width, height);
 					} else
-						tiles[x][y] = new Tile(x, y);
+						tiles[x][y] = new Tile(x, y, width, height);
 				}
 			}
 		}

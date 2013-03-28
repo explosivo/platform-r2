@@ -36,8 +36,8 @@ public class Player extends ControllableEntity {
 	public void render(Graphics g) {
 		if (isOnScreen) {
 			Graphics2D gg = (Graphics2D) g;
-			gg.setColor(Color.green);
-			gg.drawLine((int)x + w/2, (int)y + h/2, Input.x + (int) x - 320/2 + w/2, Input.y + (int) y - 240/2 + h/2);
+			//gg.setColor(Color.green);
+			//gg.drawLine((int)x + w/2, (int)y + h/2, Input.x + (int) x - 320/2 + w/2, Input.y + (int) y - 240/2 + h/2);
 			//gg.setColor(c);
 			gg.rotate(angle, x + w / 2, y + h / 2);
 			//g.fillRect((int) x, (int) y, w, h);
