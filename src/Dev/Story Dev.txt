@@ -1,0 +1,83 @@
+
+
+
+Opener - 
+	The human race has done so much since the year 2055. We have developed interplanetary travel, established several colonies on many different planets throughout our 
+galaxy, and have succesfully come together as a people to form the Earth Alliance. Everything for the species was going wonderfully, until we found it. Something that
+our scientists had deamed impossible.In 2175, one of our explorer teams came across what looked like a tear in space. It was as if God himself took space in his hands and
+ripped a whole in the fabric. As of now this 'ripspace' supposedly was a gateway to another universe, but thats the extent to our knowledge. My job is to enter the Ripspace,
+risk the lives of my team, and establish a comunication network to bring information back to the EA.
+
+
+
+
+
+	Mission 1 - Gather your team, get ready to enter into the unknown. 
+		
+		Dialogue
+			
+			Hank(Player-protagonist-squad leader) - Alright Raven Team, gear up. I will come to each one of you for inspection at 0900. so Hurry the Fuck up Marines!
+
+			Rodrigez(generic marine, probably dead soon) - Man, cap sure doesnt seem too happy
+
+			Anderson (Second in command) - Well its his kids birthday today. Thats twice the EA has made him miss it. Not right to do that to a man, especually cap
+
+			Rodrigez - How old is Junior now, 3? 4?
+
+			Hank - Hes turned 5 today. (looks away and thinks to himself) Damn, id give anything to see him blow those candles out today. 
+		
+		*faded image of junior maybe?*
+	
+			Conrad (cool guy) - *cough*
+	
+			Hank - Alright you jack asses, lets start this inspection. 
+	
+	*move character to speak to each individual marine
+
+			Hank to Rodrigez - Marine! hmmm. uh huh. alright, the only problem i see is that youre annoying. 
+
+			Rodrigez - ..thanks cap
+
+			Hank to Anderson - Hmmm, lookin' good Anderson, Get Some!
+
+			Anderson - hooah
+
+			Hank to Conrad - mhmm. 
+			
+			Hank - Alright marines, move to the bridge, ill meet you there in a few. 
+
+	*hank moves to a window*
+	
+			Hank to himself - I have a feeling I will never see my son again....
+
+
+
+
+	Mission 2 - Enter Ripspace and explore
+		
+		Dialogue
+
+			Hank - Alright Marines, strap in. Engines powered. Thrusters optimized. Raising sheild. Sealing doors. 
+		
+			Anderson - FUCK this is exciting. First ones in this fancy ass ship and first ones heading into a dam space tear. 
+
+			Rodrigez - *cough* ripspace. 
+	
+			Anderson - man shut up. 
+
+			Hank - easy marine. Alright, we have lift off. Heading into the Rip!
+	
+		*ship enters rip*
+
+		
+			Hank - oh. my. God. 
+
+			Anderson - Sir, this cant be real. 
+
+			Conrad - *Cough* 
+
+			Rodrigez - its magnificent. 
+
+	Reveal an immense world covered in vegetation and an HUGE waterfall (size of Africa)
+
+						
