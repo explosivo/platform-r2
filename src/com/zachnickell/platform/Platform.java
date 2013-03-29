@@ -22,7 +22,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Platform extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
-	public static final String NAME = "Bunny Hugs Adventure";
+	public static final String NAME = "Super Penguin Polar Dance Party";
 	public static final String VERSION = "1.0";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
