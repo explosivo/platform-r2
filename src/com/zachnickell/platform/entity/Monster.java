@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
 
-import com.zachnickell.platform.Input;
 import com.zachnickell.platform.gfx.Sprites;
+import com.zachnickell.platform.level.Level;
 
 public class Monster extends Entity {
 	Random r = new Random();
@@ -17,9 +17,15 @@ public class Monster extends Entity {
 	public static int totalMonsters;
 	public int ID;
 	int dec = 0;
-	
-	public Monster(int spawnX, int spawnY, Player player, Monster[] monsters) {
-		
+	long lastAlive;
+	Level level;
+	boolean killed;
+	boolean xpAwarded = false;
+
+	public Monster(int spawnX, int spawnY, Player player, Monster[] monsters, Level level) {
+
+		this.level = level;
+		invincable = false;
 		ID = totalMonsters;
 		totalMonsters++;
 		this.monsters = monsters;
@@ -38,41 +44,70 @@ public class Monster extends Entity {
 	}
 
 	public void render(Graphics g) {
-		if (isOnScreen) {
+		if (isOnScreen && isAlive()) {
 			Graphics2D gg = (Graphics2D) g.create();
-			//gg.setColor(c);
+			// gg.setColor(c);
 			gg.rotate(angle, x + w / 2, y + h / 2);
-			gg.drawImage(sprite, (int)x, (int)y, w, h, null);
-			//gg.fillRect((int) x, (int) y, w, h);
-			//gg.setColor(Color.red);
-			//gg.drawLine((int) x + w / 2, (int) y + h / 2, (int) x + w / 2,
-					//(int) y + h / 2 + 20);
+			gg.drawImage(sprite, (int) x, (int) y, w, h, null);
+			// gg.fillRect((int) x, (int) y, w, h);
+			// gg.setColor(Color.red);
+			// gg.drawLine((int) x + w / 2, (int) y + h / 2, (int) x + w / 2,
+			// (int) y + h / 2 + 20);
 		}
 	}
 
 	public void update(int delta) {
-		time += delta;
-		if (time > 1000) {
-			dec = (r.nextInt(120));
-			if (dec > 50) {
-				following = true;
+		if (isAlive()) {
+			lastAlive = System.currentTimeMillis();
+			if (!invincable) {
+				time += delta;
+				if (time > 1000) {
+					dec = (r.nextInt(120));
+					if (dec > 50) {
+						following = true;
+					} else
+						following = false;
+					time = 0;
+				}
+				if (dec > 10 && dec < 20) {
+					x += -Math.sin(angle) * speed;
+				}
+				if (dec > 20 && dec < 30) {
+					x += Math.sin(angle) * speed;
+				}
+				if (dec > 30 && dec < 40) {
+					y += Math.cos(angle) * speed;
+				}
+				if (dec > 40 && dec < 50) {
+					y += -Math.cos(angle) * speed;
+				}
+				moveTowards();
+			}
+			if (invincable) {
+				// xp++;
+				// c = Color.white;
+				sprite = Sprites.zombieHurt;
+				if (System.currentTimeMillis() - lastTime >= 500) {
+					invincable = false;
+				}
 			} else
-				following = false;
-			time = 0;
+				sprite = Sprites.zombie;// c = Color.red;
 		}
-		if (dec > 10 && dec < 20){
-			x += -Math.sin(angle) * speed;
+		if (!isAlive()){
+			if (!killed){
+				killed = true;
+			}
+			if (killed && !xpAwarded){
+				player.xp += 10;
+				player.kills ++;
+				killed = false;
+				xpAwarded = true;
+			}
+			if (System.currentTimeMillis() - lastAlive > 5000){
+				level.respawn(this);
+				xpAwarded = false;
+			}
 		}
-		if (dec > 20 && dec < 30){
-			x += Math.sin(angle) * speed;
-		}
-		if (dec > 30 && dec < 40){
-			y += Math.cos(angle) * speed;
-		}
-		if (dec > 40 && dec < 50){
-			y += -Math.cos(angle) * speed;
-		}
-		moveTowards();
 	}
 
 	public void moveTowards() {
@@ -84,9 +119,21 @@ public class Monster extends Entity {
 			y += Math.cos(angle) * speed;
 		}
 	}
-	
-	public void collision (Entity e, int delta){
-		e.doesDamage(1);
+
+	public void collision(Entity e, int delta) {
+		if (isAlive())
+			e.doesDamage(1);
 	}
-	
+
+	public void doesDamage(int damage) {
+		if (damage > 0 && !invincable) {
+			lastTime = System.currentTimeMillis();
+			health -= damage;
+			// System.out.println(health);
+			invincable = true;
+		} else
+			return;
+
+	}
+
 }
