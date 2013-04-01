@@ -35,7 +35,7 @@ public class Player extends ControllableEntity {
 		maxHealth = 10;
 		health = maxHealth;
 		level = 1;
-		System.out.println(health);
+		//System.out.println(health);
 		lg = new LaserGun(this);
 	}
 

@@ -98,7 +98,7 @@ public class Monster extends Entity {
 				killed = true;
 			}
 			if (killed && !xpAwarded){
-				player.xp += 10;
+				player.xp += 2;
 				player.kills ++;
 				killed = false;
 				xpAwarded = true;

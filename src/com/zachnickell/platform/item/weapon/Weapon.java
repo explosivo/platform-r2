@@ -1,6 +1,5 @@
 package com.zachnickell.platform.item.weapon;
 
-import com.zachnickell.platform.Input;
 import com.zachnickell.platform.entity.Entity;
 
 public class Weapon {
