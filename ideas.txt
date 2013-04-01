@@ -19,3 +19,37 @@ make an arena game, continue updating the arena play until it's pretty awesome
 evolve the arena into combat in an rpg with some plot line
 keep arena as a game mode
 eventually add pvp/multiplayer.. or not.. idk
+
+
+--------4/01/13--------
+Level.java so far is level prototype
+Level will contain static objects (player, etc)
+levels will extends Level and transition between each other seamlessly
+
+Cutscenes will be animated in Flash with png/jpg export per frame
+using game sprites as symbols
+
+a Level instance will become active when intersected by Player
+monsters will respawn- needing spawn animation
+unlike the current mechanic-
+	dead monsters in a room will stay dead until the second re-entry
+
+*maybe monsters will continue to spawn from some object in the room
+	like an air-duct or something, until destroyed by Player
+	
+Add level ups for monsters too, Player levels up- Monsters get more difficult
+
+
+*****Story*****
+you wake up in a cell inside a spaceship.
+An NPC informss you that he has secured
+the cell from outside entry.  Apparently,
+an expieriment malfunctioned in platform-r2
+on board the ship, infecting the crew- turning
+them into many nasty things.  The NPC has fitted
+fitted you with a LaserTool, it goes on your wrist
+and serves multiple purposes, perhaps most
+important- killing monsters. There are chips left 
+lying around to upgrade the tool.  Because you
+are the only one brave enough, you must journey
+to platform-r2 and bring everything back to normal
