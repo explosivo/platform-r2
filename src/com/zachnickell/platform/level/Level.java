@@ -1,8 +1,8 @@
 package com.zachnickell.platform.level;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.Random;
 
@@ -17,12 +17,12 @@ public class Level {
 	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
 
 	Random r = new Random();
-	int width = 30;
-	int height = 15;
+	int width = 25;
+	int height = 25;
 	int spawnX = width / 2;
 	int spawnY = height / 2;
 	Player player;
-	int monsterNumber = 10;
+	int monsterNumber = 30;
 	Monster[] monsters = new Monster[monsterNumber];
 	Rock rock;
 	PlayerGui pg;
@@ -34,7 +34,7 @@ public class Level {
 		for (int m = 0; m < monsterNumber; m++) {
 			// System.out.println("!");
 			monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
-					player, monsters);
+					player, monsters, this);
 		}
 		rock = new Rock();
 		tiles = new Tile[width][height];
@@ -58,7 +58,7 @@ public class Level {
 
 	public void render(Graphics g) {
 		Graphics gg = g.create();
-		Graphics ggg = g.create();
+		//Graphics ggg = g.create();
 		Graphics2D g2 = (Graphics2D) g;
 		g2.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
 				+ Platform.HEIGHT / 2 - 10);
@@ -140,7 +140,9 @@ public class Level {
 	public void CollisionDetect(Entity e, int delta) {
 		Rectangle r1;
 		Rectangle r2;
-		r1 = e.getBounds();
+		Polygon p;
+		r1 = player.getBounds();
+		p = player.lg.getFiringBounds();
 		/*
 		 * r2 = rock.getBounds(); if (r1.intersects(r2)){ rock.collision(player,
 		 * delta); } else player.fixMovement();
@@ -156,8 +158,25 @@ public class Level {
 		for (int m = 0; m < monsterNumber; m++) {
 			r2 = monsters[m].getBounds();
 			if (r1.intersects(r2)) {
-				monsters[m].collision(e, delta);
+				monsters[m].collision(player, delta);
+			}
+		}
+		
+		for (int m = 0; m < monsterNumber; m++) {
+			r2 = monsters[m].getBounds();
+			if (p.intersects(r2)) {
+				player.lg.collision(monsters[m], delta);
 			}
 		}
 	}
+	
+	public void respawn(Entity e){
+		int x = r.nextInt(width);
+		int y = r.nextInt(height);
+		if (x == spawnX && y == spawnY){
+			respawn(e);
+		}
+		e.respawn(x, y);
+	}
+	
 }
