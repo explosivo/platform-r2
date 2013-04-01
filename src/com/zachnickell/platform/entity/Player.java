@@ -105,7 +105,7 @@ public class Player extends ControllableEntity {
 		if (damage > 0 && !invincable) {
 			lastTime = System.currentTimeMillis();
 			health -= damage;
-			System.out.println(health);
+			//System.out.println(health);
 			invincable = true;
 		} else
 			return;

@@ -1,6 +1,5 @@
 package com.zachnickell.platform;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +14,8 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 	public static boolean downPressed = false;
 	public static boolean rightPressed = false;
 	public static boolean leftPressed = false;
+	public static boolean mutePressed = false;
+	public static boolean playPressed = false;
 	
 	//mouse switches/data
 	public static int x, y;
@@ -26,6 +27,9 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 		if (e.getKeyCode() == KeyEvent.VK_S) {releaseKeys(); downPressed = true;}
 		if (e.getKeyCode() == KeyEvent.VK_A) {releaseKeys(); leftPressed = true;}
 		if (e.getKeyCode() == KeyEvent.VK_D) {releaseKeys(); rightPressed = true;}
+		
+		if (e.getKeyCode() == KeyEvent.VK_M) {mutePressed = true;}
+		if (e.getKeyCode() == KeyEvent.VK_N) {playPressed = true;}
 	}
 
 	@Override
@@ -33,7 +37,10 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 		if (e.getKeyCode() == KeyEvent.VK_W) upPressed = false;
 		if (e.getKeyCode() == KeyEvent.VK_S) downPressed = false;
 		if (e.getKeyCode() == KeyEvent.VK_A) leftPressed = false;
-		if (e.getKeyCode() == KeyEvent.VK_D) rightPressed = false;
+		if (e.getKeyCode() == KeyEvent.VK_D) {rightPressed = false;}
+		
+		if (e.getKeyCode() == KeyEvent.VK_M) {mutePressed = false;}
+		if (e.getKeyCode() == KeyEvent.VK_N) {playPressed = false;}
 		
 	}
 	@Override

@@ -1,5 +1,10 @@
 package com.zachnickell.platform;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import com.zachnickell.platform.gfx.Sprites;
@@ -10,12 +15,13 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Platform extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.2.5";
+	public static final String VERSION = "Pre-Alpha 0.2.6";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -28,6 +34,11 @@ public class Platform extends Canvas implements Runnable {
 	private Input input;
 	private Level level;
 	Sprites sprites;
+
+	public boolean songPlaying = true;
+
+	AudioInputStream audioIn;
+	Clip clip;
 
 	public static String getTitle() {
 		String title = NAME + " " + VERSION;
@@ -42,6 +53,23 @@ public class Platform extends Canvas implements Runnable {
 
 	public void start() {
 		if (!running) {
+			try {
+				audioIn = AudioSystem.getAudioInputStream(Platform.class
+						.getResource("/music.wav"));
+				clip = AudioSystem.getClip();
+				clip.open(audioIn);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+				clip.start();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			getDelta();
 			input = new Input();
 			addKeyListener(input);
@@ -65,6 +93,9 @@ public class Platform extends Canvas implements Runnable {
 			update(delta);
 			render();
 			drawScreen();
+			if (Input.mutePressed) {
+				muteSong();
+			}
 			if (System.currentTimeMillis() - lastTime >= 1000) {
 				System.out.printf("fps: %d\n", FRAMES);
 				lastTime += 1000;
@@ -100,6 +131,22 @@ public class Platform extends Canvas implements Runnable {
 	public static void gameOver() {
 		System.out.println("dead.");
 		running = false;
+	}
+
+	long lastPress = System.currentTimeMillis();
+
+	public void muteSong() {
+		if (System.currentTimeMillis() - lastPress > 250) {
+			 lastPress = System.currentTimeMillis();
+			if (songPlaying) {
+				clip.stop();
+				songPlaying = false;
+			} else if (!songPlaying) {
+				clip.start();
+				songPlaying = true;
+			}
+		}
+
 	}
 
 	public static void main(String[] args) {
