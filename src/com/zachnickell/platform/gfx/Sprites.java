@@ -28,6 +28,8 @@ public class Sprites {
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage zombie = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
+	public static BufferedImage zombieHurt = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
 	public static BufferedImage grass = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage leftWall = new BufferedImage(size, size,
@@ -55,6 +57,7 @@ public class Sprites {
 		makePlayerSprite();
 		makePlayerHurtSprite();
 		makeZombieSprite();
+		makeZombieHurtSprite();
 		makeGrassSprite();
 		
 		
@@ -99,6 +102,10 @@ public class Sprites {
 
 	public void makeZombieSprite() {
 		zombie = getImage("/zombie.png");
+	}
+	
+	public void makeZombieHurtSprite() {
+		zombieHurt = getImage("/zombieHurt.png");
 	}
 	
 	public void makeGrassSprite() {
