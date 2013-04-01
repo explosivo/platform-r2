@@ -6,13 +6,19 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+	public double angle = 0;
 	public double x, y;
 	public int w, h;
 	public double speed;
 	public double maxSpeed;
 	public int maxHealth = 1;
 	public int health = maxHealth;
+	public int kills;
+	public int xp;
+	public int maxXP;
 	public int damage;
+	public int stamina;
+	public int maxStamina;
 	public boolean invincable = false;
 	public Color c;
 	public boolean isSolid = false;
@@ -31,7 +37,9 @@ public class Entity {
 	public int level;
 	public int giveXP;
 	public long time;
+	public long lastStaminaCheck;
 	public boolean isOnScreen = true;
+	public boolean reloadStamina = false;
 	public BufferedImage sprite;
 
 	long lastTime;
@@ -62,7 +70,6 @@ public class Entity {
 			alive = true;
 		return alive;
 	}
-
 
 	public void collision(Entity e, int delta) {
 		if (isOnScreen) {
@@ -96,11 +103,35 @@ public class Entity {
 		}
 	}
 
+	public void decreaseStamina(int penalty) {
+		if (System.currentTimeMillis() - lastStaminaCheck > 250) {
+			if (stamina != 0) {
+				lastStaminaCheck = System.currentTimeMillis();
+				stamina -= penalty;
+			}
+		}
+	}
+
+	public void increaseStamina(int advantage) {
+		if (System.currentTimeMillis() - lastStaminaCheck > 250) {
+			if (stamina < maxStamina) {
+				lastStaminaCheck = System.currentTimeMillis();
+				stamina += advantage;
+			}
+		}
+	}
+
 	public void doesDamage(int damage) {
 	}
 
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, w, h);
+	}
+	
+	public void respawn (int x, int y){
+		health = maxHealth;
+		this.x = x * 16;
+		this.y = y * 16;
 	}
 
 }

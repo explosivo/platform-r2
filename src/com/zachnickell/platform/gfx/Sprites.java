@@ -28,6 +28,8 @@ public class Sprites {
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage zombie = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
+	public static BufferedImage zombieHurt = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
 	public static BufferedImage grass = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage leftWall = new BufferedImage(size, size,
@@ -46,8 +48,6 @@ public class Sprites {
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage cornerWallBR = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
-	public static BufferedImage happy = new BufferedImage(224, 16,
-			BufferedImage.TRANSLUCENT);
 
 	public Sprites() {
 		makeDefaultSprite();
@@ -57,8 +57,8 @@ public class Sprites {
 		makePlayerSprite();
 		makePlayerHurtSprite();
 		makeZombieSprite();
+		makeZombieHurtSprite();
 		makeGrassSprite();
-		makeHappySprite();
 		
 		
 		makeLeftWallSprite();
@@ -92,49 +92,49 @@ public class Sprites {
 		g.dispose();
 	}
 
-	public void makeHappySprite() {
-		happy = getImage("/happybirthday.png");
-	}
-	
 	public void makePlayerSprite() {
-		player = getImage("/Kjoshfront.png");
+		player = getImage("/joshfront.png");
 	}
 
 	public void makePlayerHurtSprite() {
-		playerHurt = player;//getImage("/joshhurt.png");
+		playerHurt = getImage("/joshhurt.png");
 	}
 
 	public void makeZombieSprite() {
-		zombie = getImage("/Kzombie.png");
+		zombie = getImage("/zombie.png");
+	}
+	
+	public void makeZombieHurtSprite() {
+		zombieHurt = getImage("/zombieHurt.png");
 	}
 	
 	public void makeGrassSprite() {
-		defaultSprite = getImage("/Kfloor.png");
+		defaultSprite = getImage("/floor.png");
 	}
 	
 	public void makeLeftWallSprite() {
-		leftWall = getImage("/kleftWall.png");
+		leftWall = getImage("/leftWall.png");
 	}
 	public void makeRightWallSprite() {
-		rightWall = getImage("/krightWall.png");
+		rightWall = getImage("/rightWall.png");
 	}
 	public void makeTopWallSprite() {
-		topWall = getImage("/ktopWall.png");
+		topWall = getImage("/topWall.png");
 	}
 	public void makeBottomWallSprite() {
-		bottomWall = getImage("/kbottomWall.png");
+		bottomWall = getImage("/bottomWall.png");
 	}
 	public void makeCornerWallTLSprite() {
-		cornerWallTL = getImage("/kcornerWall.png");
+		cornerWallTL = getImage("/cornerWallTL.png");
 	}
 	public void makeCornerWallTRSprite() {
-		cornerWallTR = getImage("/kcornerWall.png");
+		cornerWallTR = getImage("/cornerWallTR.png");
 	}
 	public void makeCornerWallBLSprite() {
-		cornerWallBL = getImage("/kcornerWall.png");
+		cornerWallBL = getImage("/cornerWallBL.png");
 	}
 	public void makeCornerWallBRSprite() {
-		cornerWallBR = getImage("/kcornerWall.png");
+		cornerWallBR = getImage("/cornerWallBR.png");
 	}
 
 	public void makeSnowSprite() {

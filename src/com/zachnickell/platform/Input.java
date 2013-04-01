@@ -1,5 +1,6 @@
 package com.zachnickell.platform;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -9,8 +10,6 @@ import java.awt.event.MouseMotionListener;
 
 public class Input implements KeyListener, MouseMotionListener, MouseListener{
 
-	//public Robot rob;
-	
 	// keyboard switches/data
 	public static boolean upPressed = false;
 	public static boolean downPressed = false;
@@ -20,16 +19,6 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 	//mouse switches/data
 	public static int x, y;
 	public static boolean mousePress = false;
-	
-	public Input() {
-		//try {
-			//rob = new Robot();
-		//} catch (AWTException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
-	}
-	
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -94,7 +83,8 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

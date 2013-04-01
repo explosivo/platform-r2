@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
 
+import com.zachnickell.platform.Input;
 import com.zachnickell.platform.gfx.Sprites;
 
 public class Monster extends Entity {
@@ -85,7 +86,7 @@ public class Monster extends Entity {
 	}
 	
 	public void collision (Entity e, int delta){
-		//e.doesDamage(1);
+		e.doesDamage(1);
 	}
 	
 }
