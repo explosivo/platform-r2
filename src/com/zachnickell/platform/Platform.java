@@ -8,6 +8,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import com.zachnickell.platform.gfx.Sprites;
+import com.zachnickell.platform.level.IntroCell;
 import com.zachnickell.platform.level.Level;
 
 import java.awt.BorderLayout;
@@ -78,7 +79,7 @@ public class Platform extends Canvas implements Runnable {
 			running = true;
 			requestFocus();
 			sprites = new Sprites();
-			level = new Level();
+			level = new IntroCell(0, 0);
 			new Thread(this).start();
 		}
 	}
