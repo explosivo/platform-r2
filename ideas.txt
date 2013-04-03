@@ -42,9 +42,9 @@ Add level ups for monsters too, Player levels up- Monsters get more difficult
 
 *****Story*****
 you wake up in a cell inside a spaceship.
-An NPC informss you that he has secured
+An NPC informs you that he has secured
 the cell from outside entry.  Apparently,
-an expieriment malfunctioned in platform-r2
+an experiment malfunctioned in platform-r2
 on board the ship, infecting the crew- turning
 them into many nasty things.  The NPC has fitted
 fitted you with a LaserTool, it goes on your wrist
@@ -53,3 +53,7 @@ important- killing monsters. There are chips left
 lying around to upgrade the tool.  Because you
 are the only one brave enough, you must journey
 to platform-r2 and bring everything back to normal
+
+--------4/02/13--------
+add methods to Level, setting(), stage(), above()
+for a more organized rendering as things are getting less static
