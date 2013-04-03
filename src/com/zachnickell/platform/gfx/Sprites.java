@@ -48,6 +48,9 @@ public class Sprites {
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage cornerWallBR = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
+	
+	public static BufferedImage oldMan = new BufferedImage(size, size,
+			BufferedImage.TRANSLUCENT);
 
 	public Sprites() {
 		makeDefaultSprite();
@@ -60,6 +63,7 @@ public class Sprites {
 		makeZombieHurtSprite();
 		makeGrassSprite();
 		
+		makeOldManSprite();
 		
 		makeLeftWallSprite();
 		makeRightWallSprite();
@@ -110,6 +114,10 @@ public class Sprites {
 	
 	public void makeGrassSprite() {
 		defaultSprite = getImage("/floor.png");
+	}
+	
+	public void makeOldManSprite() {
+		oldMan = getImage("/oldGuy.png");
 	}
 	
 	public void makeLeftWallSprite() {

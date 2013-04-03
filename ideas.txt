@@ -53,3 +53,7 @@ important- killing monsters. There are chips left
 lying around to upgrade the tool.  Because you
 are the only one brave enough, you must journey
 to platform-r2 and bring everything back to normal
+
+--------4/02/13--------
+add methods to Level, setting(), stage(), above()
+for a more organized rendering as things are getting less static
