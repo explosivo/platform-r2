@@ -17,26 +17,31 @@ public class Level {
 	// 175 x 175 map running smoothly at 4% cpu and ~60 fps 3/25/13 2:35PM
 
 	Random r = new Random();
-	int width = 25;
-	int height = 25;
-	int spawnX = width / 2;
-	int spawnY = height / 2;
-	Player player;
-	int monsterNumber = 30;
-	Monster[] monsters = new Monster[monsterNumber];
-	Rock rock;
-	PlayerGui pg;
+	int width;// = 25;
+	int height;// = 25;
+	int spawnX;// = width / 2;
+	int spawnY;// = height / 2;
+	static Player player;
+	int monsterNumber;// = 30;
+	Monster[] monsters;// = new Monster[monsterNumber];
+	//Rock rock;
+	static PlayerGui pg;
 	Tile[][] tiles;
-	int[][] tileGrid = new int[width][height];
+	int[][] tileGrid;// = new int[width][height];
 
-	public Level() {
-		player = new Player(spawnX, spawnY);
+	public Level(int width, int height, int monsterNumber) {
+		this.width = width;
+		this.height = height;
+		this.monsterNumber = monsterNumber;
+		//player = new Player(spawnX, spawnY);
+		monsters = new Monster[monsterNumber];
+		tileGrid = new int[width][height];
 		for (int m = 0; m < monsterNumber; m++) {
 			// System.out.println("!");
 			monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
 					player, monsters, this);
 		}
-		rock = new Rock();
+		//rock = new Rock();
 		tiles = new Tile[width][height];
 		pg = new PlayerGui(player);
 		for (int x = 0; x < width; x++) {
@@ -47,6 +52,34 @@ public class Level {
 				tileGrid[x][height - 1] = 2;
 			}
 		}
+	}
+		
+		public Level(int width, int height, int spawnX, int spawnY, int monsterNumber) {
+			
+			this.width = width;
+			this.height = height;
+			this.spawnX = spawnX;
+			this.spawnY = spawnY;
+			this.monsterNumber = monsterNumber;
+			player = new Player(spawnX, spawnY);
+			monsters = new Monster[monsterNumber];
+			tileGrid = new int[width][height];
+			for (int m = 0; m < monsterNumber; m++) {
+				// System.out.println("!");
+				monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
+						player, monsters, this);
+			}
+			//rock = new Rock();
+			tiles = new Tile[width][height];
+			pg = new PlayerGui(player);
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					tileGrid[0][y] = 2;
+					tileGrid[width - 1][y] = 2;
+					tileGrid[x][0] = 2;
+					tileGrid[x][height - 1] = 2;
+				}
+			}
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -58,7 +91,6 @@ public class Level {
 
 	public void render(Graphics g) {
 		Graphics gg = g.create();
-		//Graphics ggg = g.create();
 		Graphics2D g2 = (Graphics2D) g;
 		g2.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
 				+ Platform.HEIGHT / 2 - 10);
