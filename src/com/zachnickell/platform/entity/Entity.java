@@ -70,7 +70,7 @@ public class Entity {
 			alive = true;
 		return alive;
 	}
-
+	/*
 	public void collision(Entity e, int delta) {
 		if (isOnScreen) {
 			if (isSolid && e.isSolid) {
@@ -101,6 +101,17 @@ public class Entity {
 				}
 			}
 		}
+	}
+	*/
+	
+	public void collision(Entity e, int delta) {
+		if (isSolid && e.isSolid){
+			
+		}
+	}
+	
+	public double getAngle(){
+		return angle;
 	}
 
 	public void decreaseStamina(int penalty) {

@@ -136,7 +136,7 @@ public class Level {
 					} else if (tileGrid[x][y] == Tile.SNOW) {
 						tiles[x][y] = new Snow(x, y, width, height);
 					} else if (tileGrid[x][y] == Tile.DIRT) {
-						tiles[x][y] = new Dirt(x, y, width, height);
+						tiles[x][y] = new Wall(x, y, width, height);
 					} else
 						tiles[x][y] = new Tile(x, y, width, height);
 				}

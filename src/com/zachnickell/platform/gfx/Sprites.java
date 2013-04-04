@@ -22,7 +22,7 @@ public class Sprites {
 			BufferedImage.TYPE_INT_RGB);
 	public static BufferedImage heart = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);
-	public static BufferedImage player = new BufferedImage(size, size,
+	public static BufferedImage player = new BufferedImage(24, 24,
 			BufferedImage.TRANSLUCENT);
 	public static BufferedImage playerHurt = new BufferedImage(size, size,
 			BufferedImage.TRANSLUCENT);

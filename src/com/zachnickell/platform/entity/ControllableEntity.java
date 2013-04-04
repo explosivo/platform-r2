@@ -5,20 +5,30 @@ import com.zachnickell.platform.Input;
 public class ControllableEntity extends Entity {
 
 	public void move(int delta) {
-		if (!Input.anyMovementKeysPressed())
-			direction = IDLE;
-		else if (Input.upPressed && canMoveUp) {
-			direction = UP;
-			y -= speed * delta;
-		} else if (Input.downPressed && canMoveDown) {
-			direction = DOWN;
-			y += speed * delta;
-		} else if (Input.leftPressed && canMoveLeft) {
-			direction = LEFT;
-			x -= speed * delta;
-		} else if (Input.rightPressed && canMoveRight) {
-			direction = RIGHT;
-			x += speed * delta;
+		//if (!Input.anyMovementKeysPressed())
+			//direction = IDLE;
+		if (Input.upPressed && canMoveUp) {
+			//direction = UP;
+			x += -Math.sin(angle) * speed * delta;
+			y += Math.cos(angle) * speed * delta;
+			//y -= speed * delta;
+		} if (Input.downPressed && canMoveDown) {
+			//direction = DOWN;
+			x += Math.sin(angle) * speed * delta;
+			y += -Math.cos(angle) * speed * delta;
+			//y += speed * delta;
+		} if (Input.leftPressed && canMoveLeft) {
+			angle += Math.PI/55;
+			//direction = LEFT;
+			//x += Math.sin(angle + Math.PI/2) * speed * delta;
+			//y += -Math.cos(angle + Math.PI/2) * speed * delta;
+			//x -= speed * delta;
+		} if (Input.rightPressed && canMoveRight) {
+			angle -= Math.PI/55;
+			//direction = RIGHT;
+			//x += Math.sin(angle - Math.PI/2) * speed * delta;
+			//y += -Math.cos(angle - Math.PI/2) * speed * delta;
+			//x += speed * delta;
 		}
 	}
 

@@ -42,7 +42,7 @@ public class Tile extends Entity {
 	 * x, y); }
 	 */
 
-	public void collision(Entity e, int delta) {
+	/*public void collision(Entity e, int delta) {
 		if (isOnScreen) {
 			if (isSolid && e.isSolid) {
 				e.doesDamage(damage);
@@ -73,7 +73,7 @@ public class Tile extends Entity {
 				}
 			}
 		}
-	}
+	}*/
 
 	public Rectangle getBounds() {
 		return new Rectangle(this.x * size, this.y * size, size, size);

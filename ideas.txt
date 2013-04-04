@@ -55,5 +55,7 @@ are the only one brave enough, you must journey
 to platform-r2 and bring everything back to normal
 
 --------4/02/13--------
-add methods to Level, setting(), stage(), above()
+add methods to Level- setting(), stage(), above()
 for a more organized rendering as things are getting less static
+
+create level editor for ease of design

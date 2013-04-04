@@ -17,16 +17,21 @@ public class Input implements KeyListener, MouseMotionListener, MouseListener{
 	public static boolean mutePressed = false;
 	public static boolean playPressed = false;
 	
+	public static boolean firePressed = false;
+	
 	//mouse switches/data
 	public static int x, y;
 	public static boolean mousePress = false;
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_W) {releaseKeys(); upPressed = true;}
-		if (e.getKeyCode() == KeyEvent.VK_S) {releaseKeys(); downPressed = true;}
-		if (e.getKeyCode() == KeyEvent.VK_A) {releaseKeys(); leftPressed = true;}
-		if (e.getKeyCode() == KeyEvent.VK_D) {releaseKeys(); rightPressed = true;}
+		//movement
+		if (e.getKeyCode() == KeyEvent.VK_W) {upPressed = true;}
+		if (e.getKeyCode() == KeyEvent.VK_S) {downPressed = true;}
+		if (e.getKeyCode() == KeyEvent.VK_A) {leftPressed = true;}
+		if (e.getKeyCode() == KeyEvent.VK_D) {rightPressed = true;}
+		//use weapon
+		if (e.getKeyCode() == KeyEvent.VK_D) {firePressed = true;}
 		
 		if (e.getKeyCode() == KeyEvent.VK_M) {mutePressed = true;}
 		if (e.getKeyCode() == KeyEvent.VK_N) {playPressed = true;}
