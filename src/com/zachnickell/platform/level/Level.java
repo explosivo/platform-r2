@@ -172,9 +172,8 @@ public class Level {
 	public void CollisionDetect(Entity e, int delta) {
 		Rectangle r1;
 		Rectangle r2;
-		Polygon p;
+		Polygon polygon;
 		r1 = player.getBounds();
-		p = player.lg.getFiringBounds();
 		/*
 		 * r2 = rock.getBounds(); if (r1.intersects(r2)){ rock.collision(player,
 		 * delta); } else player.fixMovement();
@@ -194,12 +193,22 @@ public class Level {
 			}
 		}
 		
-		for (int m = 0; m < monsterNumber; m++) {
+		/*for (int b = 0; b < player.p.bullet.size(); b++){
+			for (int m = 0; m < monsterNumber; m++){
+				polygon = player.p.bullet.get(b).getFiringBounds();
+				r2 = monsters[m].getBounds();
+				if (polygon.intersects(r2)){
+					player.p.collision(monsters[m], delta);
+				}
+			}
+		}*/
+		
+		/*for (int m = 0; m < monsterNumber; m++) {
 			r2 = monsters[m].getBounds();
 			if (p.intersects(r2)) {
-				player.lg.collision(monsters[m], delta);
+				player.p.collision(monsters[m], delta);
 			}
-		}
+		}*/
 	}
 	
 	public void respawn(Entity e){

@@ -8,6 +8,7 @@ import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.item.weapon.LaserGun;
+import com.zachnickell.platform.item.weapon.Pistol;
 
 public class Player extends ControllableEntity {
 
@@ -15,7 +16,8 @@ public class Player extends ControllableEntity {
 	// public int xp = 0;
 	// public int maxXP = 100;
 	// public double angle = 0;
-	public LaserGun lg;
+	//public LaserGun lg;
+	public Pistol p;
 
 	public Player(int spawnX, int spawnY) {
 		w = 24;
@@ -36,7 +38,8 @@ public class Player extends ControllableEntity {
 		health = maxHealth;
 		level = 1;
 		//System.out.println(health);
-		lg = new LaserGun(this);
+		//lg = new LaserGun(this);
+		p = new Pistol(this);
 	}
 
 	public void render(Graphics g) {
@@ -49,7 +52,8 @@ public class Player extends ControllableEntity {
 			gg.rotate(angle, x + w / 2, y + h / 2);
 			// g.fillRect((int) x, (int) y, w, h);
 			gg.drawImage(sprite, (int) x, (int) y, w, h, null);
-			lg.render(g);
+			//lg.render(g);
+			p.render(g);
 		}
 	}
 
@@ -61,13 +65,16 @@ public class Player extends ControllableEntity {
 			//		* Math.PI / 2;
 			// System.out.println(angle);
 			// lg.getFireAngle();
+			p.update(delta);
 			if (Input.mousePress) {
 				decreaseStamina(1);
-				lg.fire();
+				//lg.fire();
+				p.fire();
 				reloadStamina = false;
 			}
 			if (!Input.mousePress) {
-				lg.ceaseFire();
+				//lg.ceaseFire();
+				p.ceaseFire();
 				reloadStamina = true;
 			}
 			if (reloadStamina) {
