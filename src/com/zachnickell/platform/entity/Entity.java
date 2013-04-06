@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import com.zachnickell.platform.level.Level;
+
 public class Entity {
 	public double angle = 0;
 	public double x, y;
@@ -41,8 +43,15 @@ public class Entity {
 	public boolean isOnScreen = true;
 	public boolean reloadStamina = false;
 	public BufferedImage sprite;
+	public static Level lvl;
 
 	long lastTime;
+
+	public void init(Level level) {
+		System.out.println("ENTITY INITIALIZED!");
+		this.lvl = level;
+		System.out.println(lvl.toString());
+	}
 
 	public void render(Graphics g) {
 		if (isOnScreen) {
@@ -70,47 +79,25 @@ public class Entity {
 			alive = true;
 		return alive;
 	}
+
 	/*
+	 * public void collision(Entity e, int delta) { if (isOnScreen) { if
+	 * (isSolid && e.isSolid) { if (e.direction == UP) { // e.canMoveUp = false;
+	 * e.y = y + h; if (isMovable) { y -= e.speed * delta; } } else if
+	 * (e.direction == DOWN) { // e.canMoveDown = false; e.y = y - e.h; if
+	 * (isMovable) { y += e.speed * delta; } } else if (e.direction == LEFT) {
+	 * // e.canMoveLeft = false; e.x = x + w; if (isMovable) { x -= e.speed *
+	 * delta; } } else if (e.direction == RIGHT) { // e.canMoveRight = false;
+	 * e.x = x - e.w; if (isMovable) { x += e.speed * delta; } } } } }
+	 */
+
 	public void collision(Entity e, int delta) {
-		if (isOnScreen) {
-			if (isSolid && e.isSolid) {
-				if (e.direction == UP) {
-					// e.canMoveUp = false;
-					e.y = y + h;
-					if (isMovable) {
-						y -= e.speed * delta;
-					}
-				} else if (e.direction == DOWN) {
-					// e.canMoveDown = false;
-					e.y = y - e.h;
-					if (isMovable) {
-						y += e.speed * delta;
-					}
-				} else if (e.direction == LEFT) {
-					// e.canMoveLeft = false;
-					e.x = x + w;
-					if (isMovable) {
-						x -= e.speed * delta;
-					}
-				} else if (e.direction == RIGHT) {
-					// e.canMoveRight = false;
-					e.x = x - e.w;
-					if (isMovable) {
-						x += e.speed * delta;
-					}
-				}
-			}
+		if (isSolid && e.isSolid) {
+
 		}
 	}
-	*/
-	
-	public void collision(Entity e, int delta) {
-		if (isSolid && e.isSolid){
-			
-		}
-	}
-	
-	public double getAngle(){
+
+	public double getAngle() {
 		return angle;
 	}
 
@@ -138,8 +125,19 @@ public class Entity {
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, w, h);
 	}
+
+	public void moveCheck(double dx, double dy){
+		if(lvl.isFree((int)x + (int)dx, (int) y)){
+			x += dx;
+		} else 
+			x += 0;
+		if(lvl.isFree((int)x, (int) y + (int)dy)){
+			y += dy;
+		} else 
+			y += 0;
+	}
 	
-	public void respawn (int x, int y){
+	public void respawn(int x, int y) {
 		health = maxHealth;
 		this.x = x * 16;
 		this.y = y * 16;

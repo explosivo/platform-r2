@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.zachnickell.platform.Platform;
@@ -43,6 +44,7 @@ public class Level {
 		}
 		//rock = new Rock();
 		tiles = new Tile[width][height];
+
 		pg = new PlayerGui(player);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -84,8 +86,10 @@ public class Level {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				tiles[x][y] = new Tile(x, y, width, height);
+				//tiles.add(new Tile(x, y, width, height));
 			}
 		}
+		createLevel();
 
 	}
 
@@ -118,7 +122,7 @@ public class Level {
 			monsters[m].update(delta);
 		}
 		// rock.update(delta);
-		createLevel();
+		//createLevel();
 		shouldRender(delta);
 		CollisionDetect(player, delta);
 		for (int m = 0; m < monsterNumber; m++) {
@@ -126,7 +130,7 @@ public class Level {
 		}
 		// CollisionDetect(monster, delta);
 	}
-
+	
 	public void createLevel() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -209,6 +213,18 @@ public class Level {
 				player.p.collision(monsters[m], delta);
 			}
 		}*/
+	}
+	
+	public boolean isFree(int x, int y){
+		if (tiles[x/16][y/16].isSolid){
+			return false;
+		} else
+			return true;
+	}
+	
+	public boolean isInteracting(int x, int y){
+		
+		return false;
 	}
 	
 	public void respawn(Entity e){

@@ -21,6 +21,7 @@ public class Monster extends Entity {
 	Level level;
 	boolean killed;
 	boolean xpAwarded = false;
+	double dx, dy;
 
 	public Monster(int spawnX, int spawnY, Player player, Monster[] monsters, Level level) {
 
@@ -70,16 +71,20 @@ public class Monster extends Entity {
 					time = 0;
 				}
 				if (dec > 10 && dec < 20) {
-					x += -Math.sin(angle) * speed;
+					dx = -Math.sin(angle) * speed;
+					moveCheck(dx,0);
 				}
 				if (dec > 20 && dec < 30) {
-					x += Math.sin(angle) * speed;
+					dx = Math.sin(angle) * speed;
+					moveCheck(dx,0);
 				}
 				if (dec > 30 && dec < 40) {
-					y += Math.cos(angle) * speed;
+					dy = Math.cos(angle) * speed;
+					moveCheck(0,dy);
 				}
 				if (dec > 40 && dec < 50) {
-					y += -Math.cos(angle) * speed;
+					dy = -Math.cos(angle) * speed;
+					moveCheck(0,dy);
 				}
 				moveTowards();
 			}
@@ -114,10 +119,12 @@ public class Monster extends Entity {
 		angle = Math.atan2((y + h / 2) - (player.y + h / 2), (x + w / 2)
 				- (player.x + w / 2))
 				+ Math.PI / 2;
+		
 		if (following) {
-			x += -Math.sin(angle) * speed;
-			y += Math.cos(angle) * speed;
+			dx = -Math.sin(angle) * speed;
+			dy = Math.cos(angle) * speed;
 		}
+		moveCheck(dx,dy);
 	}
 
 	public void collision(Entity e, int delta) {

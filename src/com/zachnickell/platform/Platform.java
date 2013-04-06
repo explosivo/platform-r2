@@ -7,6 +7,7 @@ import javax.sound.sampled.Clip;
 //import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
+import com.zachnickell.platform.entity.Entity;
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.IntroCell;
 import com.zachnickell.platform.level.Level;
@@ -22,7 +23,7 @@ public class Platform extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.2.7b";
+	public static final String VERSION = "Pre-Alpha 0.2.7c";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -79,7 +80,8 @@ public class Platform extends Canvas implements Runnable {
 			running = true;
 			requestFocus();
 			sprites = new Sprites();
-			level = new IntroCell(0, 0);
+			level = new Level(10, 10, 5, 5, 0);//new IntroCell(0, 0);
+			new Entity().init(level);
 			new Thread(this).start();
 		}
 	}
