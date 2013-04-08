@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
+
 import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.gfx.Sprites;
@@ -23,7 +26,7 @@ public class Player extends ControllableEntity {
 		w = 24;
 		h = 24;
 		maxXP = 100;
-		sprite = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
+		//sprite = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
 		maxSpeed = .15;
 		maxStamina = 3;
 		stamina = maxStamina;
@@ -42,23 +45,35 @@ public class Player extends ControllableEntity {
 		p = new Pistol(this);
 	}
 
-	public void render(Graphics g) {
+	public void render(){//Graphics g) {
 		if (isOnScreen) {
-			Graphics2D gg = (Graphics2D) g.create();
-			// gg.setColor(Color.green);
-			// gg.drawLine((int)x + w/2, (int)y + h/2, Input.x + (int) x - 320/2
-			// + w/2, Input.y + (int) y - 240/2 + h/2);
-			// gg.setColor(c);
-			gg.rotate(angle, x + w / 2, y + h / 2);
-			// g.fillRect((int) x, (int) y, w, h);
-			gg.drawImage(sprite, (int) x, (int) y, w, h, null);
-			//lg.render(g);
-			p.render(g);
+			//Graphics2D gg = (Graphics2D) g.create();
+			//gg.rotate(angle, x + w / 2, y + h / 2);
+			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
+			//p.render(g);
+			sprite.bind();
+			GL11.glPushMatrix();
+			GL11.glTranslated((x + w / 2), (y + w/2), 0);
+			GL11.glRotated(Math.toDegrees(angle), 0, 0, 1);
+			GL11.glTranslated(-(x + w / 2), -(y + w/2), 0);
+			GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2d(0, 0);
+				GL11.glVertex2d(x, y);
+				GL11.glTexCoord2d(1, 0);
+				GL11.glVertex2d(x + w, y);
+				GL11.glTexCoord2d(1, 1);
+				GL11.glVertex2d(x + w, y + h);
+				GL11.glTexCoord2d(0, 1);
+				GL11.glVertex2d(x, y + h);
+			GL11.glEnd();
+			p.render();
+			GL11.glPopMatrix();
 		}
 	}
 
 	public void update(int delta) {
 		if (isAlive()) {
+ 			xp = maxXP - 1;
 			angle = Math.atan2((y + h / 2) - (Input.y + y - 240 / 2 + h / 2),
 					(x + w / 2) - (Input.x + x - 320 / 2 + w / 2))
 					- 3

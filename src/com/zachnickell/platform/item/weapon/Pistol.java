@@ -19,7 +19,7 @@ public class Pistol extends Weapon {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void render(Graphics g) {
+	public void render(){//Graphics g) {
 		// if (firing) {
 		// g.setColor(Color.red);
 		// g.drawLine((int) owner.x + owner.w / 2,
@@ -30,7 +30,7 @@ public class Pistol extends Weapon {
 
 		// }
 		for (int i = 0; i < bullet.size(); i++) {
-			bullet.get(i).render(g);
+			bullet.get(i).render();
 
 		}
 	}

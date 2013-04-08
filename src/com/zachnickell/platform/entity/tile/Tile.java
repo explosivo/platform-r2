@@ -4,6 +4,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.*;
+import org.newdawn.slick.opengl.Texture;
+
 import com.zachnickell.platform.entity.Entity;
 import com.zachnickell.platform.gfx.Sprites;
 
@@ -11,8 +15,7 @@ public class Tile extends Entity {
 	int x;
 	int y;
 	public static int size = 16;
-	public BufferedImage sprite = new BufferedImage(size, size,
-			BufferedImage.TYPE_INT_RGB);
+	public Texture sprite = Sprites.defaultSprite;
 	public int id;
 	public static final int DEFAULT = 0;
 	public static final int SNOW = 1;
@@ -22,16 +25,27 @@ public class Tile extends Entity {
 	int maxLevelWidth, maxLevelHeight;
 
 	public Tile(int x, int y, int maxLevelWidth, int maxLevelHeight) {
-		sprite = Sprites.defaultSprite;
+		//sprite = Sprites.defaultSprite;
 		this.x = x;
 		this.y = y;
 		this.maxLevelWidth = maxLevelWidth;
 		this.maxLevelHeight = maxLevelHeight;
 	}
 
-	public void render(Graphics g) {
+	public void render(){//Graphics g) {
 		if (isOnScreen) {
-			g.drawImage(sprite, x * size, y * size, null);
+			//g.drawImage(sprite, x * size, y * size, null);
+			sprite.bind();
+			GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2d(0, 0);
+				GL11.glVertex2d(x * size, y * size);
+				GL11.glTexCoord2d(1, 0);
+				GL11.glVertex2d(x * size + size, y * size);
+				GL11.glTexCoord2d(1, 1);
+				GL11.glVertex2d(x * size + size, y * size + size);
+				GL11.glTexCoord2d(0, 1);
+				GL11.glVertex2d(x * size, y * size + size);
+			GL11.glEnd();
 		} else {
 
 		}

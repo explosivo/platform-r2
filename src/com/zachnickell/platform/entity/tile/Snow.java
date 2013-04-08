@@ -6,7 +6,7 @@ public class Snow extends Tile {
 
 	public Snow(int x, int y, int maxLevelWidth, int maxLevelHeight) {
 		super(x, y, maxLevelWidth, maxLevelHeight);
-		sprite = Sprites.snow;
+		//sprite = Sprites.snow;
 		damage = 0;
 	}
 }

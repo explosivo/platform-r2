@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.util.*;
+
 import com.zachnickell.platform.level.Level;
 
 public class Entity {
@@ -42,7 +45,8 @@ public class Entity {
 	public long lastStaminaCheck;
 	public boolean isOnScreen = true;
 	public boolean reloadStamina = false;
-	public BufferedImage sprite;
+	//public BufferedImage sprite;
+	public Texture sprite;
 	public static Level lvl;
 
 	long lastTime;

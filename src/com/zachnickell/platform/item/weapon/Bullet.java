@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+import org.lwjgl.opengl.GL11;
+
 import com.zachnickell.platform.Input;
 
 public class Bullet {
@@ -19,9 +21,19 @@ public class Bullet {
 		yy =(int) (y + Math.cos(angle)) ;
 	}
 	
-	public void render(Graphics g){
-		g.setColor(Color.yellow);
-		g.drawLine(x, y, xx, yy);
+	public void render(){//Graphics g){
+		//g.setColor(Color.yellow);
+		//g.drawLine(x, y, xx, yy);
+		GL11.glPushMatrix();
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glBegin(GL11.GL_LINES);
+			GL11.glLineWidth(3);
+			GL11.glColor3f(1, 0, 0);
+			GL11.glVertex2d(x, y);
+			GL11.glVertex2d(xx, yy);
+		GL11.glEnd();
+		GL11.glPopMatrix();
+		GL11.glColor3f(1, 1, 1);
 	}
 	
 	public void update (int delta){

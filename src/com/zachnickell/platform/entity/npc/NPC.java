@@ -11,7 +11,7 @@ public class NPC extends Entity {
 		if (isOnScreen) {
 			Graphics2D gg = (Graphics2D) g.create();
 			gg.rotate(angle, x + w / 2, y + h / 2);
-			gg.drawImage(sprite, (int) x, (int) y, w, h, null);
+			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
 		}
 	}
 	

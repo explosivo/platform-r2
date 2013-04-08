@@ -7,6 +7,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.Project;
+
+import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.*;
 import com.zachnickell.platform.entity.tile.*;
@@ -93,8 +97,8 @@ public class Level {
 
 	}
 
-	public void render(Graphics g) {
-		Graphics gg = g.create();
+	public void render(){//Graphics g) {
+		/*Graphics gg = g.create();
 		Graphics2D g2 = (Graphics2D) g;
 		g2.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
 				+ Platform.HEIGHT / 2 - 10);
@@ -113,7 +117,22 @@ public class Level {
 		//		Platform.HEIGHT - 29);
 		player.render(g2);
 		pg.render(gg);
-		gg.dispose();
+		gg.dispose();*/
+		//pg.render();
+		GL11.glPushMatrix();
+		GL11.glTranslated(-player.x + Platform.WIDTH / 2 - 10, -player.y + Platform.HEIGHT / 2 - 10, 0);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				tiles[x][y].render();
+			}
+		}
+		for (int m = 0; m < monsterNumber; m++) {
+			monsters[m].render();
+		}
+		player.render();
+		GL11.glPopMatrix();
+		pg.render();
+		//GL11.glTranslated(0, 0, 0);
 	}
 
 	public void update(int delta) {

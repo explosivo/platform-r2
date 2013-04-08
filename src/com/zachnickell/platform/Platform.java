@@ -7,6 +7,11 @@ import javax.sound.sampled.Clip;
 //import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.*;
+import static org.lwjgl.opengl.GL11.*;
+
 import com.zachnickell.platform.entity.Entity;
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.IntroCell;
@@ -19,11 +24,11 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 //import java.io.IOException;
 
-public class Platform extends Canvas implements Runnable {
+public class Platform extends Canvas{//implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.2.7c";
+	public static final String VERSION = "Pre-Alpha 0.2.7c openGL test";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -73,62 +78,137 @@ public class Platform extends Canvas implements Runnable {
 				e.printStackTrace();
 			}*/
 			getDelta();
+			try {
+				Display.setDisplayMode(new DisplayMode(WIDTH * SCALE, HEIGHT * SCALE));
+				Display.setTitle(getTitle());
+				Display.setVSyncEnabled(false);
+				Display.create();
+			} catch (LWJGLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(0);
+			}
+			
 			input = new Input();
-			addKeyListener(input);
-			addMouseListener(input);
-			addMouseMotionListener(input);
+			//addKeyListener(input);
+			//addMouseListener(input);
+			//addMouseMotionListener(input);
 			running = true;
-			requestFocus();
+			//requestFocus();
 			sprites = new Sprites();
-			level = new Level(10, 10, 5, 5, 0);//new IntroCell(0, 0);
+			level = new Level(50, 50, 5, 5, 100);//new IntroCell(0, 0);
 			new Entity().init(level);
-			new Thread(this).start();
+			//Mouse.setGrabbed(true);
+			//new Thread(this).start();
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			
+			GL11.glClearColor(0f, 0f, 0f, 0f);
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glLoadIdentity();
+			GL11.glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+			
+			//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			
+			long lastTime = System.currentTimeMillis();
+			while (!Display.isCloseRequested()) {
+				int delta = getDelta();
+				//if (!hasFocus()) {
+				//	Input.releaseKeys();
+				//}
+				Input.checkInput();
+				update(delta);
+				render();
+				//drawScreen();
+				Display.update();
+				Display.sync(30);
+				if (Input.mutePressed) {
+					muteSong();
+				}
+				//if (System.currentTimeMillis() - lastTime >= 1000) {
+					//System.out.printf("fps: %d\n", FRAMES);
+					//lastTime += 1000;
+					//FRAMES = 0;
+				//}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			Display.destroy();
 		}
 	}
 
 	public void run() {
+		
+		try {
+			Display.makeCurrent();
+		} catch (LWJGLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		GL11.glClearColor(0f, 0f, 0f, 0f);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glViewport(0, 0, WIDTH, HEIGHT);
+		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
 		long lastTime = System.currentTimeMillis();
-		while (running) {
+		while (!Display.isCloseRequested()) {
 			int delta = getDelta();
-			if (!hasFocus()) {
-				Input.releaseKeys();
-			}
+			//if (!hasFocus()) {
+			//	Input.releaseKeys();
+			//}
 			update(delta);
 			render();
-			drawScreen();
+			//drawScreen();
+			Display.update();
+			Display.sync(80);
 			if (Input.mutePressed) {
 				muteSong();
 			}
-			if (System.currentTimeMillis() - lastTime >= 1000) {
-				System.out.printf("fps: %d\n", FRAMES);
-				lastTime += 1000;
-				FRAMES = 0;
-			}
+			//if (System.currentTimeMillis() - lastTime >= 1000) {
+				//System.out.printf("fps: %d\n", FRAMES);
+				//lastTime += 1000;
+				//FRAMES = 0;
+			//}
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		Display.destroy();
 	}
 
 	public void update(int delta) {
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		level.update(delta);
 	}
 
 	public void render() {
-		dbg = img.createGraphics();
-		dbg.clearRect(0, 0, WIDTH, HEIGHT);
-		level.render(dbg);
-		Toolkit.getDefaultToolkit().sync();
-		dbg.dispose();
+		//dbg = img.createGraphics();
+		//dbg.clearRect(0, 0, WIDTH, HEIGHT);
+		glLoadIdentity();
+		level.render();
+		//Toolkit.getDefaultToolkit().sync();
+		//dbg.dispose();
 	}
 
 	public void drawScreen() {
 		FRAMES++;
-		Graphics g = getGraphics();
-		g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-		g.dispose();
+		//Graphics g = getGraphics();
+		//g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		//g.dispose();
 	}
 
 	public static void gameOver() {
@@ -153,7 +233,7 @@ public class Platform extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		Platform platform = new Platform();
+		/*Platform platform = new Platform();
 		JFrame win = new JFrame(getTitle());
 		win.setLayout(new BorderLayout());
 		win.add(platform, BorderLayout.CENTER);
@@ -161,7 +241,8 @@ public class Platform extends Canvas implements Runnable {
 		win.setResizable(false);
 		win.setLocationRelativeTo(null);
 		win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		win.setVisible(true);
+		win.setVisible(true);*/
+		Platform platform = new Platform();
 		platform.start();
 	}
 }

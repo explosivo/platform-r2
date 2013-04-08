@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
+
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.Level;
 
@@ -44,16 +46,32 @@ public class Monster extends Entity {
 		sprite = Sprites.zombie;
 	}
 
-	public void render(Graphics g) {
+	public void render(){//Graphics g) {
 		if (isOnScreen && isAlive()) {
-			Graphics2D gg = (Graphics2D) g.create();
+			//Graphics2D gg = (Graphics2D) g.create();
 			// gg.setColor(c);
-			gg.rotate(angle, x + w / 2, y + h / 2);
-			gg.drawImage(sprite, (int) x, (int) y, w, h, null);
+			//gg.rotate(angle, x + w / 2, y + h / 2);
+			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
 			// gg.fillRect((int) x, (int) y, w, h);
 			// gg.setColor(Color.red);
 			// gg.drawLine((int) x + w / 2, (int) y + h / 2, (int) x + w / 2,
 			// (int) y + h / 2 + 20);
+			sprite.bind();
+			GL11.glPushMatrix();
+			GL11.glTranslated((x + w / 2), (y + w/2), 0);
+			GL11.glRotated(Math.toDegrees(angle), 0, 0, 1);
+			GL11.glTranslated(-(x + w / 2), -(y + w/2), 0);
+			GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2d(0, 0);
+				GL11.glVertex2d(x, y);
+				GL11.glTexCoord2d(1, 0);
+				GL11.glVertex2d(x + w, y);
+				GL11.glTexCoord2d(1, 1);
+				GL11.glVertex2d(x + w, y + h);
+				GL11.glTexCoord2d(0, 1);
+				GL11.glVertex2d(x, y + h);
+			GL11.glEnd();
+			GL11.glPopMatrix();
 		}
 	}
 

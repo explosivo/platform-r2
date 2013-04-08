@@ -16,7 +16,7 @@ public class IntroCell extends Level{
 	}
 	
 	public void render(Graphics g){
-		super.render(g);
+		//super.render(g);
 		oldman.render(g);
 	}
 	
