@@ -66,15 +66,15 @@ public class Player extends ControllableEntity {
 				GL11.glTexCoord2d(0, 1);
 				GL11.glVertex2d(x, y + h);
 			GL11.glEnd();
-			p.render();
 			GL11.glPopMatrix();
+			p.render();
 		}
 	}
 
 	public void update(int delta) {
 		if (isAlive()) {
  			xp = maxXP - 1;
-			angle = Math.atan2((y + h / 2) - (Input.y + y - 240 / 2 + h / 2),
+			angle = -Math.atan2((y + h / 2) - (Input.y + y - 240 / 2 + h / 2),
 					(x + w / 2) - (Input.x + x - 320 / 2 + w / 2))
 					- 3
 					* Math.PI / 2;
