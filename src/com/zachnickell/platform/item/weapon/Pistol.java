@@ -7,15 +7,18 @@ import java.util.ArrayList;
 
 import com.zachnickell.platform.Input;
 import com.zachnickell.platform.entity.Entity;
+import com.zachnickell.platform.level.Level;
 
 public class Pistol extends Weapon {
 
 	public ArrayList<Bullet> bullet = new ArrayList<Bullet>();
 
 	double x, y;
+	Level level;
 
 	public Pistol(Entity owner) {
 		super(owner);
+		level = owner.lvl;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,14 +34,15 @@ public class Pistol extends Weapon {
 		// }
 		for (int i = 0; i < bullet.size(); i++) {
 			bullet.get(i).render();
-
 		}
 	}
 
 	public void update(int delta) {
 		for (int i = 0; i < bullet.size(); i++) {
 			bullet.get(i).update(delta);
-
+			if (!bullet.get(i).getBounds().intersects(owner.lvl.renderZone())){
+				bullet.remove(i);
+			}
 		}
 	}
 
@@ -58,6 +62,10 @@ public class Pistol extends Weapon {
 			y = 0;
 			// System.out.println("firing stopped.");
 		}
+	}
+	
+	public ArrayList getBullets(){
+		return bullet;
 	}
 
 	public void collision(Entity e, int delta) {

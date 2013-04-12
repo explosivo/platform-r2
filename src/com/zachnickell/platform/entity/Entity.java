@@ -52,25 +52,26 @@ public class Entity {
 	long lastTime;
 
 	public void init(Level level) {
-		System.out.println("ENTITY INITIALIZED!");
+		//System.out.println("ENTITY INITIALIZED!");
 		this.lvl = level;
-		System.out.println(lvl.toString());
+		//System.out.println(lvl.toString());
 	}
 
-	public void render(Graphics g) {
-		if (isOnScreen) {
-			g.setColor(c);
-			g.fillRect((int) x, (int) y, w, h);
+	public void render(){//Graphics g) {
+		if (shouldRender()) {
+			//g.setColor(c);
+			//g.fillRect((int) x, (int) y, w, h);
 		}
 	}
 
-	public void shouldRender() {
-		isOnScreen = true;
+	public boolean shouldRender() {
+		//Rectangle r = new Rectangle((int)x,(int)y,w,h);
+		if (getBounds().intersects(lvl.renderZone())){
+			return true;
+		} else
+			return false;
 	}
 
-	public void shouldNotRender() {
-		isOnScreen = false;
-	}
 
 	public void update(int delta) {
 

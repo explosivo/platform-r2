@@ -20,20 +20,22 @@ public class Tile extends Entity {
 	public static final int DEFAULT = 0;
 	public static final int SNOW = 1;
 	public static final int DIRT = 2;
-	int w = size;
-	int h = size;
+	//int w = size;
+	//int h = size;
 	int maxLevelWidth, maxLevelHeight;
 
 	public Tile(int x, int y, int maxLevelWidth, int maxLevelHeight) {
 		//sprite = Sprites.defaultSprite;
 		this.x = x;
 		this.y = y;
+		w = size;
+		h = size;
 		this.maxLevelWidth = maxLevelWidth;
 		this.maxLevelHeight = maxLevelHeight;
 	}
 
 	public void render(){//Graphics g) {
-		if (isOnScreen) {
+		if (shouldRender()) {
 			//g.drawImage(sprite, x * size, y * size, null);
 			sprite.bind();
 			GL11.glBegin(GL11.GL_QUADS);

@@ -4,12 +4,12 @@ import java.awt.Graphics;
 
 import com.zachnickell.platform.entity.npc.OldMan;
 
-public class IntroCell extends Level{
+public class IntroCell{// extends Level{
 
-	OldMan oldman;
+	/*OldMan oldman;
 	
 	public IntroCell(int spawnX, int spawnY){
-		super(10, 10, 1, 1, 0);
+		//super(10, 10, 1, 1, 0);
 		
 		oldman = new OldMan(7, 7, Level.player, this);
 		
@@ -24,5 +24,5 @@ public class IntroCell extends Level{
 		super.update(delta);
 		oldman.update(delta);
 	}
-	
+	*/
 }

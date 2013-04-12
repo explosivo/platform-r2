@@ -46,7 +46,7 @@ public class Player extends ControllableEntity {
 	}
 
 	public void render(){//Graphics g) {
-		if (isOnScreen) {
+		if (shouldRender()) {
 			//Graphics2D gg = (Graphics2D) g.create();
 			//gg.rotate(angle, x + w / 2, y + h / 2);
 			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
@@ -73,7 +73,6 @@ public class Player extends ControllableEntity {
 
 	public void update(int delta) {
 		if (isAlive()) {
- 			xp = maxXP - 1;
 			angle = -Math.atan2((y + h / 2) - (Input.y + y - 240 / 2 + h / 2),
 					(x + w / 2) - (Input.x + x - 320 / 2 + w / 2))
 					- 3

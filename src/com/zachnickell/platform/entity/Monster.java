@@ -47,7 +47,7 @@ public class Monster extends Entity {
 	}
 
 	public void render(){//Graphics g) {
-		if (isOnScreen && isAlive()) {
+		if (shouldRender() && isAlive()) {
 			//Graphics2D gg = (Graphics2D) g.create();
 			// gg.setColor(c);
 			//gg.rotate(angle, x + w / 2, y + h / 2);

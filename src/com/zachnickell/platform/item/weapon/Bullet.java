@@ -7,11 +7,13 @@ import java.awt.Polygon;
 import org.lwjgl.opengl.GL11;
 
 import com.zachnickell.platform.Input;
+import com.zachnickell.platform.entity.Entity;
 
 public class Bullet {
 
 	double x, y, xx, yy;
 	double angle;
+	public int damage = 1;
 	
 	public Bullet (int x, int y, double angle){
 		this.x = x;
@@ -38,13 +40,19 @@ public class Bullet {
 	}
 	
 	public void update (int delta){
-		x += Math.sin(angle - Math.PI) * delta;
-		y += Math.cos(angle) * delta;
-		xx += Math.sin(angle - Math.PI) * delta;
-		yy += Math.cos(angle) * delta;
+		System.out.println("!!!");
+		movement(delta);
+			
 	}
 	
-	public Polygon getFiringBounds() {
+	public void movement(int delta){
+		x += Math.sin(angle - Math.PI) * delta * 0.5;
+		y += Math.cos(angle) * delta * 0.5;
+		xx += Math.sin(angle - Math.PI) * delta * 0.5;
+		yy += Math.cos(angle) * delta * 0.5;
+	}
+	
+	public Polygon getBounds() {
 		Polygon p = new Polygon();
 		p.addPoint((int)x, (int)y);
 		p.addPoint((int)xx, (int)yy);

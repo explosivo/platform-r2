@@ -39,6 +39,7 @@ public class Sprites {
 	public static Texture healthProg;
 	
 	public static Texture oldMan;
+	public static Texture portal;
 
 	public Sprites() {
 		makeDefaultSprite();
@@ -50,6 +51,7 @@ public class Sprites {
 		makeZombieSprite();
 		makeZombieHurtSprite();
 		makeGrassSprite();
+		makePortalSprite();
 		
 		makeOldManSprite();
 		
@@ -108,7 +110,9 @@ public class Sprites {
 	public void makeGrassSprite() {
 		defaultSprite = getImage("floor.png");
 	}
-	
+	public void makePortalSprite(){
+		portal = getImage("portal.png");
+	}
 	public void makeOldManSprite() {
 		oldMan = getImage("oldGuy.png");
 	}

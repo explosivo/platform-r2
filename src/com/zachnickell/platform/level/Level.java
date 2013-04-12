@@ -14,6 +14,7 @@ import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.*;
 import com.zachnickell.platform.entity.tile.*;
+import com.zachnickell.platform.item.weapon.Bullet;
 
 public class Level {
 	// screen size is 20 x 15 @(16x16)size tiles
@@ -33,6 +34,7 @@ public class Level {
 	static PlayerGui pg;
 	Tile[][] tiles;
 	int[][] tileGrid;// = new int[width][height];
+	Portal portal;
 
 	public Level(int width, int height, int monsterNumber) {
 		this.width = width;
@@ -60,7 +62,7 @@ public class Level {
 		}
 	}
 		
-		public Level(int width, int height, int spawnX, int spawnY, int monsterNumber) {
+		public Level(int width, int height, int spawnX, int spawnY, int monsterNumber, int portX, int portY) {
 			
 			this.width = width;
 			this.height = height;
@@ -86,6 +88,7 @@ public class Level {
 					tileGrid[x][height - 1] = 2;
 				}
 			}
+			portal = new Portal(portX, portY);
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -126,6 +129,7 @@ public class Level {
 				tiles[x][y].render();
 			}
 		}
+		portal.render();
 		for (int m = 0; m < monsterNumber; m++) {
 			monsters[m].render();
 		}
@@ -134,6 +138,7 @@ public class Level {
 		pg.render();
 		//GL11.glTranslated(0, 0, 0);
 	}
+	
 
 	public void update(int delta) {
 		player.update(delta);
@@ -142,8 +147,9 @@ public class Level {
 		}
 		// rock.update(delta);
 		//createLevel();
-		shouldRender(delta);
-		CollisionDetect(player, delta);
+		//shouldRender(delta);
+		//CollisionDetect(player, delta);
+		newColision();
 		for (int m = 0; m < monsterNumber; m++) {
 			CollisionDetect(monsters[m], delta);
 		}
@@ -167,13 +173,14 @@ public class Level {
 		}
 	}
 
-	public void shouldRender(int delta) {
+	public Rectangle renderZone() {
 		Rectangle r1 = new Rectangle(
-				(int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
-						- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
-				Platform.HEIGHT - 29);
-		Rectangle r2;
-		for (int x = 0; x < width; x++) {
+				(int) player.x + player.w/2 - (Platform.WIDTH) / 2 - 2, (int) player.y + player.h/2
+						- (Platform.HEIGHT) / 2 + 14, Platform.WIDTH,
+				Platform.HEIGHT - 16);
+		return r1;
+		//Rectangle r2;
+		/*for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				r2 = tiles[x][y].getBounds();
 				if (r1.intersects(r2)) {
@@ -188,8 +195,28 @@ public class Level {
 				monsters[m].shouldRender();
 			} else
 				monsters[m].shouldNotRender();
-		}
+		}*/
 
+	}
+	
+	public void newColision(){
+		ArrayList bullets = player.p.getBullets();
+		for (int b = 0; b < bullets.size(); b++){
+			Bullet bullet = (Bullet) bullets.get(b);
+			
+			Polygon p1 = bullet.getBounds();
+			
+			for (int m = 0; m < monsters.length; m++){
+				Monster monster = monsters[m];
+				Rectangle r1 = monster.getBounds();
+				
+				if (p1.intersects(r1)){
+					monster.doesDamage(bullet.damage);
+					//bullets.remove(b);
+				}
+			}
+			
+		}
 	}
 
 	public void CollisionDetect(Entity e, int delta) {
