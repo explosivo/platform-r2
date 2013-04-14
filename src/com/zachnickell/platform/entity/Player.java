@@ -28,7 +28,7 @@ public class Player extends ControllableEntity {
 		maxXP = 100;
 		//sprite = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
 		maxSpeed = .15;
-		maxStamina = 3;
+		maxStamina = 100;
 		stamina = maxStamina;
 		// c = Color.red;
 		sprite = Sprites.player;

@@ -27,9 +27,9 @@ public class Level {
 	int height;// = 25;
 	int spawnX;// = width / 2;
 	int spawnY;// = height / 2;
-	static Player player;
-	int monsterNumber;// = 30;
-	Monster[] monsters;// = new Monster[monsterNumber];
+	public static Player player;
+	//int monsterNumber;// = 30;
+	//Monster[] monsters;// = new Monster[monsterNumber];
 	//Rock rock;
 	static PlayerGui pg;
 	Tile[][] tiles;
@@ -39,14 +39,14 @@ public class Level {
 	public Level(int width, int height, int monsterNumber) {
 		this.width = width;
 		this.height = height;
-		this.monsterNumber = monsterNumber;
+		//this.monsterNumber = monsterNumber;
 		//player = new Player(spawnX, spawnY);
-		monsters = new Monster[monsterNumber];
+		//monsters = new Monster[monsterNumber];
 		tileGrid = new int[width][height];
 		for (int m = 0; m < monsterNumber; m++) {
 			// System.out.println("!");
-			monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
-					player, monsters, this);
+			//monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
+			//		player, this);
 		}
 		//rock = new Rock();
 		tiles = new Tile[width][height];
@@ -68,14 +68,14 @@ public class Level {
 			this.height = height;
 			this.spawnX = spawnX;
 			this.spawnY = spawnY;
-			this.monsterNumber = monsterNumber;
+			//this.monsterNumber = monsterNumber;
 			player = new Player(spawnX, spawnY);
-			monsters = new Monster[monsterNumber];
+			//monsters = new Monster[monsterNumber];
 			tileGrid = new int[width][height];
 			for (int m = 0; m < monsterNumber; m++) {
 				// System.out.println("!");
-				monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
-						player, monsters, this);
+				//monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
+				//		player, this);
 			}
 			//rock = new Rock();
 			tiles = new Tile[width][height];
@@ -130,30 +130,48 @@ public class Level {
 			}
 		}
 		portal.render();
-		for (int m = 0; m < monsterNumber; m++) {
+		/*for (int m = 0; m < monsterNumber; m++) {
 			monsters[m].render();
-		}
+		}*/
+		renderMonsters();
 		player.render();
 		GL11.glPopMatrix();
 		pg.render();
 		//GL11.glTranslated(0, 0, 0);
 	}
 	
+	public void renderMonsters(){
+		ArrayList<Monster> mons = portal.getMonsters();
+		for(int m = 0; m < mons.size(); m++){
+			Monster monster = mons.get(m);
+			monster.render();
+		}
+	}
 
 	public void update(int delta) {
 		player.update(delta);
-		for (int m = 0; m < monsterNumber; m++) {
+		portal.update();
+		updateMonsters(delta);
+		/*for (int m = 0; m < monsterNumber; m++) {
 			monsters[m].update(delta);
-		}
+		}*/
 		// rock.update(delta);
 		//createLevel();
 		//shouldRender(delta);
 		//CollisionDetect(player, delta);
 		newColision();
-		for (int m = 0; m < monsterNumber; m++) {
-			CollisionDetect(monsters[m], delta);
-		}
+		//for (int m = 0; m < monsterNumber; m++) {
+		//	CollisionDetect(monsters[m], delta);
+		//}
 		// CollisionDetect(monster, delta);
+	}
+	
+	public void updateMonsters(int delta){
+		ArrayList<Monster> mons = portal.getMonsters();
+		for (int m = 0; m < mons.size(); m ++){
+			Monster monster = mons.get(m);
+			monster.update(delta);
+		}
 	}
 	
 	public void createLevel() {
@@ -200,26 +218,35 @@ public class Level {
 	}
 	
 	public void newColision(){
-		ArrayList bullets = player.p.getBullets();
+		ArrayList<Bullet> bullets = player.p.getBullets();
+		ArrayList<Monster> monsters = portal.getMonsters();
 		for (int b = 0; b < bullets.size(); b++){
 			Bullet bullet = (Bullet) bullets.get(b);
 			
 			Polygon p1 = bullet.getBounds();
 			
-			for (int m = 0; m < monsters.length; m++){
-				Monster monster = monsters[m];
+			/*Rectangle r = portal.getBounds();
+			if (p1.intersects(r)){
+				portal.doesDamage(bullet.damage);
+				bullets.remove(b);
+				break;
+			}
+			*/
+			for (int m = 0; m < monsters.size(); m++){
+				Monster monster = monsters.get(m);
 				Rectangle r1 = monster.getBounds();
 				
 				if (p1.intersects(r1)){
 					monster.doesDamage(bullet.damage);
-					//bullets.remove(b);
+					bullets.remove(b);
+					break;
 				}
 			}
 			
 		}
 	}
 
-	public void CollisionDetect(Entity e, int delta) {
+	/*public void CollisionDetect(Entity e, int delta) {
 		Rectangle r1;
 		Rectangle r2;
 		Polygon polygon;
@@ -227,7 +254,7 @@ public class Level {
 		/*
 		 * r2 = rock.getBounds(); if (r1.intersects(r2)){ rock.collision(player,
 		 * delta); } else player.fixMovement();
-		 */
+		 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				r2 = tiles[x][y].getBounds();
@@ -241,7 +268,7 @@ public class Level {
 			if (r1.intersects(r2)) {
 				monsters[m].collision(player, delta);
 			}
-		}
+		}/*
 		
 		/*for (int b = 0; b < player.p.bullet.size(); b++){
 			for (int m = 0; m < monsterNumber; m++){
@@ -258,8 +285,8 @@ public class Level {
 			if (p.intersects(r2)) {
 				player.p.collision(monsters[m], delta);
 			}
-		}*/
-	}
+		}
+	}*/
 	
 	public boolean isFree(int x, int y){
 		if (tiles[x/16][y/16].isSolid){

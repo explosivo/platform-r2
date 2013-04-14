@@ -40,12 +40,13 @@ public class Bullet {
 	}
 	
 	public void update (int delta){
-		System.out.println("!!!");
+		
 		movement(delta);
 			
 	}
 	
 	public void movement(int delta){
+		//System.out.println(Math.toDegrees(angle));
 		x += Math.sin(angle - Math.PI) * delta * 0.5;
 		y += Math.cos(angle) * delta * 0.5;
 		xx += Math.sin(angle - Math.PI) * delta * 0.5;

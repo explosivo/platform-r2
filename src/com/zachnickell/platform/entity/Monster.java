@@ -20,18 +20,17 @@ public class Monster extends Entity {
 	public int ID;
 	int dec = 0;
 	long lastAlive;
-	Level level;
+	//Level level;
+	Portal portal;
 	boolean killed;
 	boolean xpAwarded = false;
 	double dx, dy;
 
-	public Monster(int spawnX, int spawnY, Player player, Monster[] monsters, Level level) {
-
-		this.level = level;
+	public Monster(int spawnX, int spawnY, Player player,  Portal portal) {
+		this.portal = portal;
 		invincable = false;
 		ID = totalMonsters;
 		totalMonsters++;
-		this.monsters = monsters;
 		maxSpeed = .15;
 		c = Color.BLUE;
 		w = 24;
@@ -40,7 +39,7 @@ public class Monster extends Entity {
 		isSolid = false;
 		this.x = (double) spawnX * 16;
 		this.y = (double) spawnY * 16;
-		maxHealth = 2;
+		maxHealth = 5;
 		health = maxHealth;
 		this.player = player;
 		sprite = Sprites.zombie;
@@ -71,6 +70,18 @@ public class Monster extends Entity {
 				GL11.glTexCoord2d(0, 1);
 				GL11.glVertex2d(x, y + h);
 			GL11.glEnd();
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
+			if (isHurt()){
+				GL11.glColor3d(0, 1, 0);
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glVertex2d(x, y + h + 3);
+				GL11.glVertex2d(x + (health * w /maxHealth) + 2, y + h + 3);
+				GL11.glVertex2d(x + (health * w /maxHealth) + 2, y + h + 3 + 3);
+				GL11.glVertex2d(x, y + h + 3 + 3);
+				GL11.glEnd();
+			}
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			GL11.glColor3d(1, 1, 1);
 			GL11.glPopMatrix();
 		}
 	}
@@ -110,7 +121,7 @@ public class Monster extends Entity {
 				// xp++;
 				// c = Color.white;
 				sprite = Sprites.zombieHurt;
-				if (System.currentTimeMillis() - lastTime >= 500) {
+				if (System.currentTimeMillis() - lastTime >= 0) {
 					invincable = false;
 				}
 			} else
@@ -119,6 +130,8 @@ public class Monster extends Entity {
 		if (!isAlive()){
 			if (!killed){
 				killed = true;
+				x = -1;
+				y = -1;
 			}
 			if (killed && !xpAwarded){
 				player.xp += 2;
@@ -127,7 +140,7 @@ public class Monster extends Entity {
 				xpAwarded = true;
 			}
 			if (System.currentTimeMillis() - lastAlive > 5000){
-				level.respawn(this);
+				portal.respawn(this);
 				xpAwarded = false;
 			}
 		}

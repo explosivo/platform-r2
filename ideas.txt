@@ -59,3 +59,9 @@ add methods to Level- setting(), stage(), above()
 for a more organized rendering as things are getting less static
 
 create level editor for ease of design
+
+
+--------4/11/13--------
+make stamina for Player larger, each bullet drains stamina
+make stamina supplements for the player to refill creating challenge
+..lets just call stamina ammo at this point

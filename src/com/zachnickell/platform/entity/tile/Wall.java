@@ -1,9 +1,12 @@
 package com.zachnickell.platform.entity.tile;
 
+import org.newdawn.slick.particles.Particle;
+
 import com.zachnickell.platform.gfx.Sprites;
 
 public class Wall extends Tile {
 
+	
 	public Wall(int x, int y, int maxLevelWidth, int maxLevelHeight) {
 		super(x, y, maxLevelWidth, maxLevelHeight);
 		if (x == 0 && y == 0)

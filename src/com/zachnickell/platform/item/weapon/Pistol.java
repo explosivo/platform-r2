@@ -40,10 +40,12 @@ public class Pistol extends Weapon {
 	public void update(int delta) {
 		for (int i = 0; i < bullet.size(); i++) {
 			bullet.get(i).update(delta);
-			if (!bullet.get(i).getBounds().intersects(owner.lvl.renderZone())){
+			if (!bullet.get(i).getBounds().intersects(Entity.lvl.renderZone())){
+				//System.out.println("removing");
 				bullet.remove(i);
 			}
 		}
+		
 	}
 
 
@@ -64,7 +66,7 @@ public class Pistol extends Weapon {
 		}
 	}
 	
-	public ArrayList getBullets(){
+	public ArrayList<Bullet> getBullets(){
 		return bullet;
 	}
 

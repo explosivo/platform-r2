@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.particles.Particle;
 import org.newdawn.slick.util.*;
 
 import com.zachnickell.platform.level.Level;
@@ -125,6 +126,7 @@ public class Entity {
 	}
 
 	public void doesDamage(int damage) {
+		health -= damage;
 	}
 
 	public Rectangle getBounds() {
@@ -140,6 +142,13 @@ public class Entity {
 			y += dy;
 		} else 
 			y += 0;
+	}
+	
+	public boolean isHurt(){
+		if (maxHealth > health){
+			return true;
+		}
+		else return false;
 	}
 	
 	public void respawn(int x, int y) {
