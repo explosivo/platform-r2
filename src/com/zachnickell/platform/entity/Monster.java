@@ -72,12 +72,19 @@ public class Monster extends Entity {
 			GL11.glEnd();
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 			if (isHurt()){
+				GL11.glColor3d(0, 0, 0);
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glVertex2d(x, y - 3);
+				GL11.glVertex2d(x - 1 + w, y - 3);
+				GL11.glVertex2d(x + w, y - 3 - 3);
+				GL11.glVertex2d(x - 1, y - 3 - 3);
+				GL11.glEnd();
 				GL11.glColor3d(0, 1, 0);
 				GL11.glBegin(GL11.GL_QUADS);
-				GL11.glVertex2d(x, y + h + 3);
-				GL11.glVertex2d(x + (health * w /maxHealth) + 2, y + h + 3);
-				GL11.glVertex2d(x + (health * w /maxHealth) + 2, y + h + 3 + 3);
-				GL11.glVertex2d(x, y + h + 3 + 3);
+				GL11.glVertex2d(x, y - 3);
+				GL11.glVertex2d(x - 1 + (health * w /maxHealth) + 2, y - 3);
+				GL11.glVertex2d(x + (health * w /maxHealth) + 2, y - 3 - 3);
+				GL11.glVertex2d(x - 1, y - 3 - 3);
 				GL11.glEnd();
 			}
 			GL11.glEnable(GL11.GL_TEXTURE_2D);

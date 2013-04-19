@@ -134,11 +134,11 @@ public class Entity {
 	}
 
 	public void moveCheck(double dx, double dy){
-		if(lvl.isFree((int)x + (int)dx, (int) y)){
+		if(lvl.isFree(this, (int)x + (int)dx, (int) y)){
 			x += dx;
 		} else 
 			x += 0;
-		if(lvl.isFree((int)x, (int) y + (int)dy)){
+		if(lvl.isFree(this,(int)x, (int) y + (int)dy)){
 			y += dy;
 		} else 
 			y += 0;

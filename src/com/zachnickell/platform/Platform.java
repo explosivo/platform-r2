@@ -31,7 +31,7 @@ public class Platform extends Canvas{//implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Pre-Alpha 0.2.9";
+	public static final String VERSION = "Alpha 0.0.1";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -99,7 +99,8 @@ public class Platform extends Canvas{//implements Runnable {
 			running = true;
 			//requestFocus();
 			sprites = new Sprites();
-			level = new Level(25, 25, 10, 10, 0, 5, 5);//new IntroCell(0, 0);
+			LevelCreator levelCreator = new LevelCreator();
+			level = new Level(levelCreator);//new IntroCell(0, 0);
 			//new LevelCreator();
 			new Entity().init(level);
 			//Mouse.setGrabbed(true);

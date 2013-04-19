@@ -24,7 +24,7 @@ public class Tile extends Entity {
 	//int h = size;
 	int maxLevelWidth, maxLevelHeight;
 
-	public Tile(int x, int y, int maxLevelWidth, int maxLevelHeight) {
+	public Tile(int x, int y) {
 		//sprite = Sprites.defaultSprite;
 		this.x = x;
 		this.y = y;

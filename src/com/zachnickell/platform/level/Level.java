@@ -15,6 +15,7 @@ import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.*;
 import com.zachnickell.platform.entity.tile.*;
 import com.zachnickell.platform.item.weapon.Bullet;
+import com.zachnickell.platform.level.creator.LevelCreator;
 
 public class Level {
 	// screen size is 20 x 15 @(16x16)size tiles
@@ -28,112 +29,30 @@ public class Level {
 	int spawnX;// = width / 2;
 	int spawnY;// = height / 2;
 	public static Player player;
-	//int monsterNumber;// = 30;
-	//Monster[] monsters;// = new Monster[monsterNumber];
-	//Rock rock;
 	static PlayerGui pg;
-	Tile[][] tiles;
 	int[][] tileGrid;// = new int[width][height];
 	Portal portal;
+	ArrayList<Entity> entities;
+	ArrayList<Tile> tiles;
 
-	public Level(int width, int height, int monsterNumber) {
-		this.width = width;
-		this.height = height;
-		//this.monsterNumber = monsterNumber;
-		//player = new Player(spawnX, spawnY);
-		//monsters = new Monster[monsterNumber];
-		tileGrid = new int[width][height];
-		for (int m = 0; m < monsterNumber; m++) {
-			// System.out.println("!");
-			//monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
-			//		player, this);
-		}
-		//rock = new Rock();
-		tiles = new Tile[width][height];
-
-		pg = new PlayerGui(player);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				tileGrid[0][y] = 2;
-				tileGrid[width - 1][y] = 2;
-				tileGrid[x][0] = 2;
-				tileGrid[x][height - 1] = 2;
-			}
-		}
-	}
 		
-		public Level(int width, int height, int spawnX, int spawnY, int monsterNumber, int portX, int portY) {
+	public Level(LevelCreator levelcreator) {
+		player = levelcreator.getPlayer();
+		pg = new PlayerGui(player);	
+		
+		tiles = levelcreator.getTiles();
+		entities = levelcreator.getEntities();
 			
-			this.width = width;
-			this.height = height;
-			this.spawnX = spawnX;
-			this.spawnY = spawnY;
-			//this.monsterNumber = monsterNumber;
-			player = new Player(spawnX, spawnY);
-			//monsters = new Monster[monsterNumber];
-			tileGrid = new int[width][height];
-			for (int m = 0; m < monsterNumber; m++) {
-				// System.out.println("!");
-				//monsters[m] = new Monster(r.nextInt(width), r.nextInt(height),
-				//		player, this);
-			}
-			//rock = new Rock();
-			tiles = new Tile[width][height];
-			pg = new PlayerGui(player);
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					tileGrid[0][y] = 2;
-					tileGrid[width - 1][y] = 2;
-					tileGrid[x][0] = 2;
-					tileGrid[x][height - 1] = 2;
-				}
-			}
-			portal = new Portal(portX, portY);
-
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				tiles[x][y] = new Tile(x, y, width, height);
-				//tiles.add(new Tile(x, y, width, height));
-			}
-		}
-		createLevel();
-
 	}
 
-	public void render(){//Graphics g) {
-		/*Graphics gg = g.create();
-		Graphics2D g2 = (Graphics2D) g;
-		g2.translate((int) -player.x + Platform.WIDTH / 2 - 10, (int) -player.y
-				+ Platform.HEIGHT / 2 - 10);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				tiles[x][y].render(g);
-			}
-		}
-		for (int m = 0; m < monsterNumber; m++) {
-			monsters[m].render(g);
-		}
-		// rock.render(g);
-		//g.setColor(Color.red);
-		//g.drawRect((int) player.x - (Platform.WIDTH) / 2 + 10, (int) player.y
-		//		- (Platform.HEIGHT) / 2 + 26, Platform.WIDTH - 4,
-		//		Platform.HEIGHT - 29);
-		player.render(g2);
-		pg.render(gg);
-		gg.dispose();*/
-		//pg.render();
+	public void render(){
 		GL11.glPushMatrix();
 		GL11.glTranslated(-player.x + Platform.WIDTH / 2 - 10, -player.y + Platform.HEIGHT / 2 - 10, 0);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				tiles[x][y].render();
-			}
+		for (int t = 0; t < tiles.size(); t++) {
+			tiles.get(t).render();
 		}
-		portal.render();
-		/*for (int m = 0; m < monsterNumber; m++) {
-			monsters[m].render();
-		}*/
-		renderMonsters();
+		//portal.render();
+		//drenderMonsters();
 		player.render();
 		GL11.glPopMatrix();
 		pg.render();
@@ -150,20 +69,11 @@ public class Level {
 
 	public void update(int delta) {
 		player.update(delta);
-		portal.update();
-		updateMonsters(delta);
-		/*for (int m = 0; m < monsterNumber; m++) {
-			monsters[m].update(delta);
-		}*/
-		// rock.update(delta);
-		//createLevel();
-		//shouldRender(delta);
-		//CollisionDetect(player, delta);
-		newColision();
-		//for (int m = 0; m < monsterNumber; m++) {
-		//	CollisionDetect(monsters[m], delta);
-		//}
-		// CollisionDetect(monster, delta);
+		for (int e = 0; e < entities.size(); e++ ){
+			entities.get(e).update(delta);
+		}
+		//newColision();
+		
 	}
 	
 	public void updateMonsters(int delta){
@@ -173,7 +83,7 @@ public class Level {
 			monster.update(delta);
 		}
 	}
-	
+	/*
 	public void createLevel() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -189,7 +99,7 @@ public class Level {
 				}
 			}
 		}
-	}
+	}*/
 
 	public Rectangle renderZone() {
 		Rectangle r1 = new Rectangle(
@@ -232,8 +142,8 @@ public class Level {
 				break;
 			}
 			*/
-			for (int m = 0; m < monsters.size(); m++){
-				Monster monster = monsters.get(m);
+			for (int m = 0; m < entities.size(); m++){
+				Entity monster = (Monster) entities.get(m);
 				Rectangle r1 = monster.getBounds();
 				
 				if (p1.intersects(r1)){
@@ -288,10 +198,19 @@ public class Level {
 		}
 	}*/
 	
-	public boolean isFree(int x, int y){
-		if (tiles[x/16][y/16].isSolid){
-			return false;
-		} else
+	public boolean isFree(Entity e, int x, int y){
+		Tile tile;
+		Rectangle r1, r2;
+		r1 = e.getBounds();
+		for (int t = 0; t < tiles.size(); t ++){
+			tile = tiles.get(t);
+			if (tile.isSolid){
+				r2 = tile.getBounds();
+				if (r1.intersects(r2)){
+					return false;
+				}
+			}
+		}
 			return true;
 	}
 	
