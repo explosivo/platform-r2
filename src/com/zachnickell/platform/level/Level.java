@@ -198,15 +198,17 @@ public class Level {
 		}
 	}*/
 	
-	public boolean isFree(Entity e, int x, int y){
+	public boolean isFree(Entity e, int dx, int dy){
 		Tile tile;
-		Rectangle r1, r2;
+		Rectangle r1, newR1, r2;
 		r1 = e.getBounds();
+		r1.setBounds(r1.x + dx, r1.y + dy, r1.width, r1.height);
 		for (int t = 0; t < tiles.size(); t ++){
 			tile = tiles.get(t);
 			if (tile.isSolid){
 				r2 = tile.getBounds();
 				if (r1.intersects(r2)){
+					
 					return false;
 				}
 			}
