@@ -55,7 +55,7 @@ public class LevelCreator {
 				// bottom left wall
 				if (color == 0x1f1f1f)
 					addTile(new Wall(x, y, Wall.BOTTOMLEFT));
-				// bottom wallk
+				// bottom wall
 				if (color == 0x5a5a5a) 
 					addTile(new Wall(x, y, Wall.BOTTOM));
 				// bottom right wall
