@@ -27,7 +27,8 @@ public class Monster extends Entity {
 	double dx, dy;
 
 	public Monster(int spawnX, int spawnY, Player player,  Portal portal) {
-		this.portal = portal;
+		
+		damage = 1;
 		invincable = false;
 		ID = totalMonsters;
 		totalMonsters++;
@@ -36,7 +37,7 @@ public class Monster extends Entity {
 		w = 24;
 		h = 24;
 		speed = 0.50;
-		isSolid = false;
+		isSolid = true;
 		this.x = (double) spawnX * 16;
 		this.y = (double) spawnY * 16;
 		maxHealth = 5;

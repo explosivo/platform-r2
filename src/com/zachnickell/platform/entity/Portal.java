@@ -10,7 +10,7 @@ import com.zachnickell.platform.level.Level;
 public class Portal extends Entity {
 
 	ArrayList<Monster> monsters;
-	int maxMonsters = 0;
+	int maxMonsters = 25;
 	
 	public Portal(int x, int y) {
 		time = System.currentTimeMillis();
@@ -22,6 +22,7 @@ public class Portal extends Entity {
 		h = 56;
 		maxHealth = 10;
 		health = maxHealth;
+		interacts = false;
 	}
 	
 	public void render(){
@@ -62,13 +63,13 @@ public class Portal extends Entity {
 		}
 	}
 	
-	public void update(){
+	public void update(int delta){
 		if (isAlive()){
 			if (System.currentTimeMillis() - time > 500){
 				if (monsters.size() < maxMonsters){
 					health --;
 					time = System.currentTimeMillis();
-					monsters.add(new Monster((int)(x+w/4)/16, (int)(y+h/4)/16, lvl.player, this));
+					lvl.entities.add(new Monster((int)(x+w/4)/16, (int)(y+h/4)/16, lvl.player, this));
 				}
 			}
 		}

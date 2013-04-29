@@ -27,6 +27,7 @@ public class Entity {
 	public int maxStamina;
 	public boolean invincable = false;
 	public Color c;
+	public boolean interacts = true;
 	public boolean isSolid = false;
 	public boolean isMovable = false;
 	public boolean alive = true;
