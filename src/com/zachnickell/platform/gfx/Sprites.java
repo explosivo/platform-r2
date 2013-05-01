@@ -1,13 +1,11 @@
 package com.zachnickell.platform.gfx;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.ImageBuffer;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -37,11 +35,16 @@ public class Sprites {
 	public static Texture cornerWallBR;
 	public static Texture playerGuiBg;
 	public static Texture healthProg;
+	public static Texture stamProg;
+	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
+	
 	
 	public static Texture oldMan;
 	public static Texture portal;
 
 	public Sprites() {
+		
 		makeDefaultSprite();
 		makeSnowSprite();
 		//makeDirtSprite();
@@ -66,6 +69,13 @@ public class Sprites {
 		
 		makePlayerGuiBg();
 		makeHealthProg();
+		makeStamProg();
+		
+		
+		
+		makePlayerAnimation();
+		makePortalAnimation();
+		
 	}
 
 	public Texture getImage(String s) {
@@ -79,6 +89,7 @@ public class Sprites {
 		return i;
 	}
 
+	
 	public void makeDefaultSprite() {
 		/*Graphics g = defaultSprite.createGraphics();
 		g.setColor(Color.white);
@@ -91,6 +102,23 @@ public class Sprites {
 		*/
 	}
 
+	public void makePortalAnimation(){
+		portalAnim.add(getImage("portalAnim/1.png"));
+		portalAnim.add(getImage("portalAnim/2.png"));
+		portalAnim.add(getImage("portalAnim/3.png"));
+		portalAnim.add(getImage("portalAnim/4.png"));
+		portalAnim.add(getImage("portalAnim/5.png"));
+		portalAnim.add(getImage("portalAnim/6.png"));
+		portalAnim.add(getImage("portalAnim/7.png"));
+	}
+	
+	public void makePlayerAnimation(){
+		playerAnim.add(getImage("playerAnim/1.png"));
+		playerAnim.add(getImage("playerAnim/2.png"));
+		playerAnim.add(getImage("playerAnim/3.png"));
+		playerAnim.add(getImage("playerAnim/4.png"));
+	}
+	
 	public void makePlayerSprite() {
 		player = getImage("joshfront.png");
 	}
@@ -146,6 +174,9 @@ public class Sprites {
 	}
 	public void makeHealthProg() {
 		healthProg = getImage("healthProg.png");
+	}
+	public void makeStamProg() {
+		stamProg = getImage("stamProg.png");
 	}
 
 	public void makeSnowSprite() {

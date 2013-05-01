@@ -43,6 +43,8 @@ public class Entity {
 	public boolean canMoveRight = true;
 	public int level;
 	public int giveXP;
+	public int frame;
+	public int tick;
 	public long time;
 	public long lastStaminaCheck;
 	public boolean isOnScreen = true;

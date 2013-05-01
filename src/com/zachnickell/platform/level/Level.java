@@ -74,7 +74,7 @@ public class Level {
 		player.update(delta);
 		for (int e = 0; e < entities.size(); e++) {
 			Entity entity = entities.get(e);
-			if (!entity.isAlive()){
+			if (!entity.isAlive()) {
 				entities.remove(entity);
 				break;
 			}
@@ -92,8 +92,6 @@ public class Level {
 			monster.update(delta);
 		}
 	}
-
-
 
 	public Rectangle renderZone() {
 		Rectangle r1 = new Rectangle((int) player.x + player.w / 2
@@ -117,32 +115,42 @@ public class Level {
 			 */
 			for (int m = 0; m < entities.size(); m++) {
 				Entity entity = entities.get(m);
-				Rectangle r1 = entity.getBounds();
-				
-				if (p1.intersects(r1)) {
-					if (entity.interacts){
+				if (entity.interacts) {
+					Rectangle r1 = entity.getBounds();
+
+					if (p1.intersects(r1)) {
 						entity.doesDamage(bullet.damage);
+						bullets.remove(b);
+						break;
 					}
-					bullets.remove(b);
-					break;
 				}
 			}
-
+			for (int t = 0; t < tiles.size(); t++) {
+				Tile tile = tiles.get(t);
+				if (tile.isSolid) {
+					Rectangle r1 = tile.getBounds();
+					if (p1.intersects(r1)) {
+						bullets.remove(b);
+						break;
+					}
+				}
+			}
 		}
 	}
-	
+
 	public void entityCollision() {
-		
+
 		for (int e = 0; e < entities.size(); e++) {
 			Entity entity = entities.get(e);
-			Rectangle r1 = entity.getBounds();
-			Rectangle r2 = player.getBounds();
-
+			if (entity.interacts) {
+				Rectangle r1 = entity.getBounds();
+				Rectangle r2 = player.getBounds();
 				if (r2.intersects(r1)) {
 					System.out.println(1);
 					player.doesDamage(entity.damage);
-			}
+				}
 
+			}
 		}
 	}
 

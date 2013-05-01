@@ -10,17 +10,17 @@ import com.zachnickell.platform.level.Level;
 public class Portal extends Entity {
 
 	ArrayList<Monster> monsters;
-	int maxMonsters = 25;
+	int maxMonsters = 0;
 	
 	public Portal(int x, int y) {
 		time = System.currentTimeMillis();
 		monsters = new ArrayList<Monster>();
-		sprite = Sprites.portal;
+		sprite = Sprites.portalAnim.get(frame);
 		this.x = x * 16;
 		this.y = y * 16;
 		w = 56;
 		h = 56;
-		maxHealth = 10;
+		maxHealth = 25;
 		health = maxHealth;
 		interacts = false;
 	}
@@ -28,8 +28,9 @@ public class Portal extends Entity {
 	public void render(){
 		if (shouldRender() && isAlive()){
 			//System.out.println("mawnstah spaawwwn!");
+			sprite = Sprites.portalAnim.get(frame);
 			sprite.bind();
-			//GL11.glEnable(GL11.GL_TEXTURE_2D);
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glPushMatrix();
 			GL11.glBegin(GL11.GL_QUADS);
 				GL11.glTexCoord2d(0, 0);
@@ -64,7 +65,13 @@ public class Portal extends Entity {
 	}
 	
 	public void update(int delta){
-		if (isAlive()){
+		if (isAlive() && shouldRender()){
+			tick += delta;
+			if (tick > 100){
+			frame++;
+			tick = 0;
+			}
+			if (frame > 6) frame = 0;
 			if (System.currentTimeMillis() - time > 500){
 				if (monsters.size() < maxMonsters){
 					health --;

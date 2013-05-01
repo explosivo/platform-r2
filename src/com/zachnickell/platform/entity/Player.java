@@ -21,7 +21,8 @@ public class Player extends ControllableEntity {
 	// public double angle = 0;
 	//public LaserGun lg;
 	public Pistol p;
-
+	int time;
+	
 	public Player(int spawnX, int spawnY) {
 		w = 24;
 		h = 24;
@@ -31,7 +32,8 @@ public class Player extends ControllableEntity {
 		maxStamina = 100;
 		stamina = maxStamina;
 		// c = Color.red;
-		sprite = Sprites.player;
+		time = 0;
+		sprite = Sprites.playerAnim.get(0);
 		maxSpeed = 0.20;
 		speed = 0.08;
 		isSolid = true;
@@ -51,6 +53,7 @@ public class Player extends ControllableEntity {
 			//gg.rotate(angle, x + w / 2, y + h / 2);
 			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
 			//p.render(g);
+			sprite = Sprites.playerAnim.get(time);
 			sprite.bind();
 			GL11.glPushMatrix();
 			GL11.glTranslated((x + w / 2), (y + w/2), 0);
@@ -66,12 +69,19 @@ public class Player extends ControllableEntity {
 				GL11.glTexCoord2d(0, 1);
 				GL11.glVertex2d(x, y + h);
 			GL11.glEnd();
+			//sprite.release();
 			GL11.glPopMatrix();
 			p.render();
 		}
 	}
-
+	int tick;
 	public void update(int delta) {
+		tick += delta;
+		if (tick > 100){
+		time++;
+		tick = 0;
+		}
+		if (time > 3) time = 0;
 		if (isAlive()) {
 			angle = -Math.atan2((y + h / 2) - (Input.y + y - 240 / 2 + h / 2),
 					(x + w / 2) - (Input.x + x - 320 / 2 + w / 2))

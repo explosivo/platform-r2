@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.Texture;
 
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.Player;
@@ -14,8 +15,13 @@ import com.zachnickell.platform.gfx.Sprites;
 public class PlayerGui {
 	Player player;
 	Font font;
+	Texture health;
+	Texture stamina;
 	public PlayerGui(Player p) {
+		
 		this.player = p;
+		health = Sprites.healthProg;
+		stamina = Sprites.stamProg;
 		java.awt.Font awtFont = new java.awt.Font("Times New Roman", 0, 12);
 		font = new TrueTypeFont(awtFont, false);
 	}
@@ -56,13 +62,20 @@ public class PlayerGui {
 			GL11.glVertex3i(0, 16, 0);
 		GL11.glEnd();
 		//healthBar
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		health.bind();
 		GL11.glBegin(GL11.GL_QUADS);
-			GL11.glColor3f(1f, 0f, 0f);
+			GL11.glColor3f(1f, 0, 0);
+			GL11.glTexCoord2d(0, 0);
 			GL11.glVertex3i(3, 5, 0);
-			GL11.glVertex3i(3 + (player.health * 64 / player.maxHealth), 5, 0);
-			GL11.glVertex3i(3 + (player.health * 64 / player.maxHealth), 5 + 7, 0);
+			GL11.glTexCoord2d(1, 0);
+			GL11.glVertex3i(3 + (player.health * 64 / player.maxHealth)*2, 5, 0);
+			GL11.glTexCoord2d(1, 1);
+			GL11.glVertex3i(3 + (player.health * 64 / player.maxHealth)*2, 5 + 7, 0);
+			GL11.glTexCoord2d(0, 1);
 			GL11.glVertex3i(3, 5 + 7, 0);
 		GL11.glEnd();
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glBegin(GL11.GL_LINES);
 			GL11.glColor3f(1f, 1f, 1f);
 			GL11.glVertex3i(3, 5, 0);
@@ -75,13 +88,20 @@ public class PlayerGui {
 			GL11.glVertex3i(3 + 64, 5, 0);
 		GL11.glEnd();
 		//stamina bar
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		stamina.bind();
 		GL11.glBegin(GL11.GL_QUADS);
-			GL11.glColor3f(0f, 0f, 1f);
+			GL11.glColor3f(0, 0, 1f);
+			GL11.glTexCoord2d(0, 0);
 			GL11.glVertex3i(64+6, 5, 0);
-			GL11.glVertex3i(64+6 + (player.stamina * 64 / player.maxStamina), 5, 0);
-			GL11.glVertex3i(64+6 + (player.stamina * 64 / player.maxStamina), 5 + 7, 0);
+			GL11.glTexCoord2d(1, 0);
+			GL11.glVertex3i(64+6 + (player.stamina * 64 / player.maxStamina) * 2, 5, 0);
+			GL11.glTexCoord2d(1, 1);
+			GL11.glVertex3i(64+6 + (player.stamina * 64 / player.maxStamina) * 2, 5 + 7, 0);
+			GL11.glTexCoord2d(0, 1);
 			GL11.glVertex3i(64+6, 5 + 7, 0);
 		GL11.glEnd();
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glBegin(GL11.GL_LINES);
 			GL11.glColor3f(1f, 1f, 1f);
 			GL11.glVertex3i(64+6, 5, 0);
