@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
@@ -76,7 +77,9 @@ public class Player extends ControllableEntity {
 	}
 	int tick;
 	public void update(int delta) {
+		if (Input.downPressed || Input.upPressed || Input.leftPressed || Input.rightPressed){
 		tick += delta;
+		}
 		if (tick > 100){
 		time++;
 		tick = 0;
