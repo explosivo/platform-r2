@@ -31,6 +31,7 @@ public class Entity {
 	public boolean isSolid = false;
 	public boolean isMovable = false;
 	public boolean alive = true;
+	public boolean canPickUp = false;
 	public int direction = 0;
 	public static final int IDLE = 0;
 	public static final int UP = 1;

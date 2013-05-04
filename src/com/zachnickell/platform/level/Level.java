@@ -13,8 +13,9 @@ import org.lwjgl.util.glu.Project;
 import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.*;
+import com.zachnickell.platform.entity.item.Item;
+import com.zachnickell.platform.entity.item.weapon.Bullet;
 import com.zachnickell.platform.entity.tile.*;
-import com.zachnickell.platform.item.weapon.Bullet;
 import com.zachnickell.platform.level.creator.LevelCreator;
 
 public class Level {
@@ -142,6 +143,15 @@ public class Level {
 
 		for (int e = 0; e < entities.size(); e++) {
 			Entity entity = entities.get(e);
+			if (entity.canPickUp) {
+				Rectangle r1 = entity.getBounds();
+				Rectangle r2 = player.getBounds();
+				if (r2.intersects(r1)) {
+					player.items.add((Item) entity);
+					entities.remove(e);
+					break;
+				}
+			}
 			if (entity.interacts) {
 				Rectangle r1 = entity.getBounds();
 				Rectangle r2 = player.getBounds();

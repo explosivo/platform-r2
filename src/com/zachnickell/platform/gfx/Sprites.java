@@ -36,6 +36,7 @@ public class Sprites {
 	public static Texture playerGuiBg;
 	public static Texture healthProg;
 	public static Texture stamProg;
+	public static Texture item;
 	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
 	
@@ -71,7 +72,7 @@ public class Sprites {
 		makeHealthProg();
 		makeStamProg();
 		
-		
+		makeItems();
 		
 		makePlayerAnimation();
 		makePortalAnimation();
@@ -88,7 +89,7 @@ public class Sprites {
 		}
 		return i;
 	}
-
+	
 	
 	public void makeDefaultSprite() {
 		/*Graphics g = defaultSprite.createGraphics();
@@ -177,6 +178,10 @@ public class Sprites {
 	}
 	public void makeStamProg() {
 		stamProg = getImage("stamProg.png");
+	}
+	
+	public void makeItems() {
+		item = getImage("Items/Item.png");
 	}
 
 	public void makeSnowSprite() {

@@ -3,6 +3,7 @@ package com.zachnickell.platform.entity;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -10,9 +11,10 @@ import org.lwjgl.util.glu.GLU;
 
 import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
+import com.zachnickell.platform.entity.item.Item;
+import com.zachnickell.platform.entity.item.weapon.LaserGun;
+import com.zachnickell.platform.entity.item.weapon.Pistol;
 import com.zachnickell.platform.gfx.Sprites;
-import com.zachnickell.platform.item.weapon.LaserGun;
-import com.zachnickell.platform.item.weapon.Pistol;
 
 public class Player extends ControllableEntity {
 
@@ -23,6 +25,7 @@ public class Player extends ControllableEntity {
 	//public LaserGun lg;
 	public Pistol p;
 	int time;
+	public ArrayList<Item> items = new ArrayList<Item>();
 	
 	public Player(int spawnX, int spawnY) {
 		w = 24;

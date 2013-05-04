@@ -31,7 +31,7 @@ public class Platform extends Canvas{//implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Alpha 0.0.2a";
+	public static final String VERSION = "Alpha 0.0.3";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -229,6 +229,7 @@ public class Platform extends Canvas{//implements Runnable {
 			if (songPlaying) {
 				clip.stop();
 				songPlaying = false;
+				
 			} else if (!songPlaying) {
 				clip.start();
 				songPlaying = true;

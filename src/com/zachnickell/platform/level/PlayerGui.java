@@ -65,7 +65,7 @@ public class PlayerGui {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		health.bind();
 		GL11.glBegin(GL11.GL_QUADS);
-			GL11.glColor3f(1f, 0, 0);
+		GL11.glColor3f(1f, 0, 0);
 			GL11.glTexCoord2d(0, 0);
 			GL11.glVertex3i(3, 5, 0);
 			GL11.glTexCoord2d(1, 0);
