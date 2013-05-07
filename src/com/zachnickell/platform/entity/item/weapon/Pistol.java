@@ -41,7 +41,6 @@ public class Pistol extends Weapon {
 		for (int i = 0; i < bullet.size(); i++) {
 			bullet.get(i).update(delta);
 			if (!bullet.get(i).getBounds().intersects(Entity.lvl.renderZone())){
-				//System.out.println("removing");
 				bullet.remove(i);
 			}
 		}

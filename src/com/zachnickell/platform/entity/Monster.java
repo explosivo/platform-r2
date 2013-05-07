@@ -25,6 +25,9 @@ public class Monster extends Entity {
 	boolean killed;
 	boolean xpAwarded = false;
 	double dx, dy;
+	int currentw;
+	int currenth;
+	
 
 	public Monster(int spawnX, int spawnY, Player player,  Portal portal) {
 		
@@ -58,18 +61,18 @@ public class Monster extends Entity {
 			// (int) y + h / 2 + 20);
 			sprite.bind();
 			GL11.glPushMatrix();
-			GL11.glTranslated((x + w / 2), (y + w/2), 0);
+			GL11.glTranslated((x + currentw / 2), (y + currentw/2), 0);
 			GL11.glRotated(Math.toDegrees(angle), 0, 0, 1);
-			GL11.glTranslated(-(x + w / 2), -(y + w/2), 0);
+			GL11.glTranslated(-(x + currentw / 2), -(y + currentw/2), 0);
 			GL11.glBegin(GL11.GL_QUADS);
 				GL11.glTexCoord2d(0, 0);
 				GL11.glVertex2d(x, y);
 				GL11.glTexCoord2d(1, 0);
-				GL11.glVertex2d(x + w, y);
+				GL11.glVertex2d(x + currentw, y);
 				GL11.glTexCoord2d(1, 1);
-				GL11.glVertex2d(x + w, y + h);
+				GL11.glVertex2d(x + currentw, y + currenth);
 				GL11.glTexCoord2d(0, 1);
-				GL11.glVertex2d(x, y + h);
+				GL11.glVertex2d(x, y + currenth);
 			GL11.glEnd();
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 			if (isHurt()){
@@ -96,6 +99,12 @@ public class Monster extends Entity {
 
 	public void update(int delta) {
 		if (isAlive()) {
+			if (currentw < w){
+				currentw ++;
+			}
+			if (currenth < h){
+				currenth ++;
+			}
 			lastAlive = System.currentTimeMillis();
 			if (!invincable) {
 				time += delta;

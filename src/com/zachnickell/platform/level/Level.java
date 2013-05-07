@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -108,7 +109,7 @@ public class Level {
 		for (int b = 0; b < bullets.size(); b++) {
 			Bullet bullet = (Bullet) bullets.get(b);
 
-			Polygon p1 = bullet.getBounds();
+			Line2D p1 = bullet.getBounds();
 
 			/*
 			 * Rectangle r = portal.getBounds(); if (p1.intersects(r)){
@@ -131,7 +132,7 @@ public class Level {
 				if (tile.isSolid) {
 					Rectangle r1 = tile.getBounds();
 					if (p1.intersects(r1)) {
-						bullets.remove(b);
+						bullets.remove(b);									//fix this.. sometimes crashes
 						break;
 					}
 				}

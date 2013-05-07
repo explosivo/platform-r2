@@ -1,6 +1,7 @@
 package com.zachnickell.platform.entity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
@@ -10,7 +11,8 @@ import com.zachnickell.platform.level.Level;
 public class Portal extends Entity {
 
 	ArrayList<Monster> monsters;
-	int maxMonsters = 0;
+	int maxMonsters = 25;
+	Random random = new Random();
 	
 	public Portal(int x, int y) {
 		time = System.currentTimeMillis();
@@ -76,7 +78,9 @@ public class Portal extends Entity {
 				if (monsters.size() < maxMonsters){
 					health --;
 					time = System.currentTimeMillis();
-					lvl.entities.add(new Monster((int)(x+w/4)/16, (int)(y+h/4)/16, lvl.player, this));
+					int mx = (int)((x) + (Math.random() * ((((x) + (w)) - x) + 1)));
+					int my = (int)((y) + (Math.random() * ((((y) + (h)) - y) + 1)));;
+					Level.entities.add(new Monster((mx)/16, (my)/16, Level.player, this));
 				}
 			}
 		}
