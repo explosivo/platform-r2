@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import com.zachnickell.platform.entity.item.Item;
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.Level;
 
@@ -49,16 +50,8 @@ public class Monster extends Entity {
 		sprite = Sprites.zombie;
 	}
 
-	public void render(){//Graphics g) {
+	public void render(){
 		if (shouldRender() && isAlive()) {
-			//Graphics2D gg = (Graphics2D) g.create();
-			// gg.setColor(c);
-			//gg.rotate(angle, x + w / 2, y + h / 2);
-			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
-			// gg.fillRect((int) x, (int) y, w, h);
-			// gg.setColor(Color.red);
-			// gg.drawLine((int) x + w / 2, (int) y + h / 2, (int) x + w / 2,
-			// (int) y + h / 2 + 20);
 			sprite.bind();
 			GL11.glPushMatrix();
 			GL11.glTranslated((x + currentw / 2), (y + currentw/2), 0);
@@ -173,6 +166,10 @@ public class Monster extends Entity {
 			dy = Math.cos(angle) * speed;
 		}
 		moveCheck(dx,dy);
+	}
+	
+	public void die(){
+		Level.entities.add(new Item((int)x/16, (int)y/16, Item.POWER));
 	}
 
 	public void collision(Entity e, int delta) {

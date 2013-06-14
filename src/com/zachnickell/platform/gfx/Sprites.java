@@ -37,6 +37,9 @@ public class Sprites {
 	public static Texture healthProg;
 	public static Texture stamProg;
 	public static Texture item;
+	public static Texture healthItem;
+	public static Texture staminaItem;
+	public static Texture powerItem;
 	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
 	
@@ -182,6 +185,9 @@ public class Sprites {
 	
 	public void makeItems() {
 		item = getImage("Items/Item.png");
+		healthItem = getImage("Items/healthItem.png");
+		staminaItem = getImage("Items/staminaItem.png");
+		powerItem = getImage("Items/powerItem.png");
 	}
 
 	public void makeSnowSprite() {

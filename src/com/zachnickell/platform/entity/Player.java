@@ -1,18 +1,13 @@
 package com.zachnickell.platform.entity;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.GLU;
 
 import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
+import com.zachnickell.platform.entity.item.Inventory;
 import com.zachnickell.platform.entity.item.Item;
-import com.zachnickell.platform.entity.item.weapon.LaserGun;
 import com.zachnickell.platform.entity.item.weapon.Pistol;
 import com.zachnickell.platform.gfx.Sprites;
 
@@ -25,17 +20,15 @@ public class Player extends ControllableEntity {
 	//public LaserGun lg;
 	public Pistol p;
 	int time;
-	public ArrayList<Item> items = new ArrayList<Item>();
+	public Inventory inventory;
 	
 	public Player(int spawnX, int spawnY) {
 		w = 24;
 		h = 24;
 		maxXP = 100;
-		//sprite = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
 		maxSpeed = .15;
 		maxStamina = 100;
 		stamina = maxStamina;
-		// c = Color.red;
 		time = 0;
 		sprite = Sprites.playerAnim.get(0);
 		maxSpeed = 0.20;
@@ -46,17 +39,12 @@ public class Player extends ControllableEntity {
 		maxHealth = 10;
 		health = maxHealth;
 		level = 1;
-		//System.out.println(health);
-		//lg = new LaserGun(this);
 		p = new Pistol(this);
+		inventory = new Inventory(this);
 	}
 
-	public void render(){//Graphics g) {
+	public void render(){
 		if (shouldRender()) {
-			//Graphics2D gg = (Graphics2D) g.create();
-			//gg.rotate(angle, x + w / 2, y + h / 2);
-			//gg.drawImage(sprite, (int) x, (int) y, w, h, null);
-			//p.render(g);
 			sprite = Sprites.playerAnim.get(time);
 			sprite.bind();
 			GL11.glPushMatrix();
@@ -73,7 +61,6 @@ public class Player extends ControllableEntity {
 				GL11.glTexCoord2d(0, 1);
 				GL11.glVertex2d(x, y + h);
 			GL11.glEnd();
-			//sprite.release();
 			GL11.glPopMatrix();
 			p.render();
 		}
@@ -87,6 +74,8 @@ public class Player extends ControllableEntity {
 		time++;
 		tick = 0;
 		}
+		if (health > maxHealth) health = maxHealth;
+		if (stamina> maxStamina) stamina = maxStamina;
 		if (time > 3) time = 0;
 		if (isAlive()) {
 			angle = -Math.atan2((y + h / 2) - (Input.y + y - 240 / 2 + h / 2),

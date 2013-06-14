@@ -155,6 +155,10 @@ public class Entity {
 		else return false;
 	}
 	
+	public void die(){
+		
+	}
+	
 	public void respawn(int x, int y) {
 		health = maxHealth;
 		this.x = x * 16;

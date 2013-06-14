@@ -77,6 +77,7 @@ public class Level {
 		for (int e = 0; e < entities.size(); e++) {
 			Entity entity = entities.get(e);
 			if (!entity.isAlive()) {
+				entity.die();
 				entities.remove(entity);
 				break;
 			}
@@ -148,7 +149,7 @@ public class Level {
 				Rectangle r1 = entity.getBounds();
 				Rectangle r2 = player.getBounds();
 				if (r2.intersects(r1)) {
-					player.items.add((Item) entity);
+					player.inventory.add((Item) entity);
 					entities.remove(e);
 					break;
 				}

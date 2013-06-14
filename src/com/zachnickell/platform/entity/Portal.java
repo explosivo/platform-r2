@@ -11,7 +11,7 @@ import com.zachnickell.platform.level.Level;
 public class Portal extends Entity {
 
 	ArrayList<Monster> monsters;
-	int maxMonsters = 25;
+	int maxMonsters = 10;
 	Random random = new Random();
 	
 	public Portal(int x, int y) {
@@ -22,7 +22,7 @@ public class Portal extends Entity {
 		this.y = y * 16;
 		w = 56;
 		h = 56;
-		maxHealth = 25;
+		maxHealth = 20;
 		health = maxHealth;
 		interacts = false;
 	}
