@@ -9,6 +9,7 @@ import com.zachnickell.platform.Platform;
 import com.zachnickell.platform.entity.item.Inventory;
 import com.zachnickell.platform.entity.item.Item;
 import com.zachnickell.platform.entity.item.weapon.Pistol;
+import com.zachnickell.platform.entity.item.weapon.RocketLauncher;
 import com.zachnickell.platform.gfx.Sprites;
 
 public class Player extends ControllableEntity {
@@ -18,7 +19,8 @@ public class Player extends ControllableEntity {
 	// public int maxXP = 100;
 	// public double angle = 0;
 	//public LaserGun lg;
-	public Pistol p;
+	//public Pistol p;
+	public RocketLauncher p;
 	int time;
 	public Inventory inventory;
 	
@@ -30,7 +32,7 @@ public class Player extends ControllableEntity {
 		maxStamina = 100;
 		stamina = maxStamina;
 		time = 0;
-		sprite = Sprites.playerAnim.get(0);
+		//sprite = Sprites.playerAnim.get(0);
 		maxSpeed = 0.20;
 		speed = 0.08;
 		isSolid = true;
@@ -39,12 +41,14 @@ public class Player extends ControllableEntity {
 		maxHealth = 10;
 		health = maxHealth;
 		level = 1;
-		p = new Pistol(this);
+		//p = new Pistol(this);
+		p = new RocketLauncher(this);
 		inventory = new Inventory(this);
 	}
 
 	public void render(){
 		if (shouldRender()) {
+			sprite = Sprites.playerAnim.get(0);
 			sprite = Sprites.playerAnim.get(time);
 			sprite.bind();
 			GL11.glPushMatrix();

@@ -45,6 +45,7 @@ public class Entity {
 	public int level;
 	public int giveXP;
 	public int frame;
+	public int maxFrame;
 	public int tick;
 	public long time;
 	public long lastStaminaCheck;

@@ -17,7 +17,7 @@ public class Portal extends Entity {
 	public Portal(int x, int y) {
 		time = System.currentTimeMillis();
 		monsters = new ArrayList<Monster>();
-		sprite = Sprites.portalAnim.get(frame);
+		//sprite = Sprites.portalAnim.get(frame);
 		this.x = x * 16;
 		this.y = y * 16;
 		w = 56;
@@ -25,12 +25,13 @@ public class Portal extends Entity {
 		maxHealth = 20;
 		health = maxHealth;
 		interacts = false;
+		maxFrame = 6;
 	}
 	
 	public void render(){
 		if (shouldRender() && isAlive()){
 			//System.out.println("mawnstah spaawwwn!");
-			sprite = Sprites.portalAnim.get(frame);
+			getFrame();
 			sprite.bind();
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glPushMatrix();
@@ -73,17 +74,23 @@ public class Portal extends Entity {
 			frame++;
 			tick = 0;
 			}
-			if (frame > 6) frame = 0;
+			if (frame > maxFrame) frame = 0;
 			if (System.currentTimeMillis() - time > 500){
 				if (monsters.size() < maxMonsters){
 					health --;
 					time = System.currentTimeMillis();
 					int mx = (int)((x) + (Math.random() * ((((x) + (w)) - x) + 1)));
 					int my = (int)((y) + (Math.random() * ((((y) + (h)) - y) + 1)));;
-					Level.entities.add(new Monster((mx)/16, (my)/16, Level.player, this));
+					addMonster(mx, my);
 				}
 			}
 		}
+	}
+	
+	
+	
+	public void addMonster(int mx, int my){
+		Level.entities.add(new Monster((mx)/16, (my)/16, Level.player, this));
 	}
 	
 	public void respawn(Entity e){
@@ -91,6 +98,10 @@ public class Portal extends Entity {
 			health--;
 			e.respawn((int)x/16, (int)y/16);
 		}
+	}
+	
+	public void getFrame(){
+		sprite = Sprites.portalAnim.get(frame);
 	}
 	
 	public ArrayList<Monster> getMonsters(){

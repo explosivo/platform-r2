@@ -40,8 +40,15 @@ public class Sprites {
 	public static Texture healthItem;
 	public static Texture staminaItem;
 	public static Texture powerItem;
+	public static Texture explosion;
+	public static Texture rocket;
 	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> prismAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> robotAnim = new ArrayList<Texture>();
+	
+	public static Texture multiplayerButton;
+	public static Texture singleplayerButton;
 	
 	
 	public static Texture oldMan;
@@ -79,6 +86,13 @@ public class Sprites {
 		
 		makePlayerAnimation();
 		makePortalAnimation();
+		makePrismAnimation();
+		makeRobotAnimation();
+		
+		makeExplosionSprite();
+		makeRocketSprite();
+		
+		makeMenuUI();
 		
 	}
 
@@ -121,6 +135,20 @@ public class Sprites {
 		playerAnim.add(getImage("playerAnim/2.png"));
 		playerAnim.add(getImage("playerAnim/3.png"));
 		playerAnim.add(getImage("playerAnim/4.png"));
+	}
+	
+	public void makePrismAnimation(){
+		prismAnim.add(getImage("prismAnim/1.png"));
+		prismAnim.add(getImage("prismAnim/2.png"));
+		prismAnim.add(getImage("prismAnim/3.png"));
+		prismAnim.add(getImage("prismAnim/4.png"));
+	}
+	
+	public void makeRobotAnimation(){
+		robotAnim.add(getImage("robotAnim/1.png"));
+		robotAnim.add(getImage("robotAnim/2.png"));
+		robotAnim.add(getImage("robotAnim/3.png"));
+		robotAnim.add(getImage("robotAnim/4.png"));
 	}
 	
 	public void makePlayerSprite() {
@@ -183,11 +211,23 @@ public class Sprites {
 		stamProg = getImage("stamProg.png");
 	}
 	
+	public void makeExplosionSprite() {
+		explosion = getImage("explosion.png");
+	}
+	public void makeRocketSprite() {
+		rocket = getImage("rocket.png");
+	}
+	
 	public void makeItems() {
 		item = getImage("Items/Item.png");
 		healthItem = getImage("Items/healthItem.png");
 		staminaItem = getImage("Items/staminaItem.png");
 		powerItem = getImage("Items/powerItem.png");
+	}
+	
+	public void makeMenuUI(){
+		multiplayerButton = getImage("menuUI/buttons/multiplayer.png");
+		singleplayerButton = getImage("menuUI/buttons/singleplayer.png");
 	}
 
 	public void makeSnowSprite() {

@@ -124,7 +124,7 @@ public class Level {
 					if (p1.intersects(r1)) {
 						entity.doesDamage(bullet.damage);
 						bullets.remove(b);
-						break;
+						return;
 					}
 				}
 			}
@@ -133,7 +133,7 @@ public class Level {
 				if (tile.isSolid) {
 					Rectangle r1 = tile.getBounds();
 					if (p1.intersects(r1)) {
-						bullets.remove(b);									//fix this.. sometimes crashes
+						bullets.remove(b);									//fix this.. sometimes crashes..... maybe fixed?
 						break;
 					}
 				}

@@ -40,7 +40,7 @@ public class Monster extends Entity {
 		c = Color.BLUE;
 		w = 24;
 		h = 24;
-		speed = 0.50;
+		speed = 3.0;
 		isSolid = true;
 		this.x = (double) spawnX * 16;
 		this.y = (double) spawnY * 16;

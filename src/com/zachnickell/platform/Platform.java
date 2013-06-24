@@ -10,25 +10,37 @@ import org.lwjgl.opengl.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import com.zachnickell.platform.entity.Entity;
+import com.zachnickell.platform.entity.tile.Tile;
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.Level;
 import com.zachnickell.platform.level.creator.LevelCreator;
+import com.zachnickell.platform.menu.MainMenu;
+
 import java.awt.Canvas;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 
 public class Platform extends Canvas{
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Alpha 0.0.5";
+	public static final String VERSION = "Alpha 0.0.6";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	public static int FRAMES = 0;
 	public static long lastDeltaTime;
-
+	
 	private Input input;
+	
+	private MainMenu mainmenu;
+	
 	private Level level;
+	
 	Sprites sprites;
 
 	public boolean songPlaying = true;
@@ -68,6 +80,7 @@ public class Platform extends Canvas{
 			}*/
 			getDelta();
 			try {
+				//entities = (ArrayList<Entity>) object;
 				Display.setDisplayMode(new DisplayMode(WIDTH * SCALE, HEIGHT * SCALE));
 				Display.setTitle(getTitle());
 				Display.setVSyncEnabled(false);
@@ -81,6 +94,7 @@ public class Platform extends Canvas{
 			input = new Input();
 			running = true;
 			sprites = new Sprites();
+			//mainmenu = new MainMenu();
 			LevelCreator levelCreator = new LevelCreator();
 			level = new Level(levelCreator);
 			new Entity().init(level);
@@ -122,11 +136,13 @@ public class Platform extends Canvas{
 
 	public void update(int delta) {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		//mainmenu.update();
 		level.update(delta);
 	}
 
 	public void render() {
 		glLoadIdentity();
+		//mainmenu.render();
 		level.render();
 	}
 

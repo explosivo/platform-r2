@@ -10,9 +10,12 @@ import javax.imageio.ImageIO;
 import com.zachnickell.platform.entity.Entity;
 import com.zachnickell.platform.entity.Player;
 import com.zachnickell.platform.entity.Portal;
+import com.zachnickell.platform.entity.Prism;
+import com.zachnickell.platform.entity.Robot;
 import com.zachnickell.platform.entity.item.Item;
 import com.zachnickell.platform.entity.tile.Tile;
 import com.zachnickell.platform.entity.tile.Wall;
+import com.zachnickell.platform.level.Level;
 
 public class LevelCreator {
 
@@ -78,6 +81,10 @@ public class LevelCreator {
 				}
 				if (color == 0xb200ff){
 					addEntity(new Portal(x, y));
+					addTile(new Tile(x, y));
+				}
+				if (color == 0xff0000){
+					addEntity(new Prism(x, y));
 					addTile(new Tile(x, y));
 				}
 				if (color == 0xfffd2e){
