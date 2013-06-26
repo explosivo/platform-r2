@@ -28,7 +28,7 @@ public class Platform extends Canvas{
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Alpha 0.0.6";
+	public static final String VERSION = "Alpha 0.0.7";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;

@@ -35,7 +35,8 @@ public class Level {
 	int[][] tileGrid;// = new int[width][height];
 	Portal portal;
 	public static ArrayList<Entity> entities;
-	ArrayList<Tile> tiles;
+	public static ArrayList<Tile> tiles;
+	public static ArrayList<Bullet> bullets;
 
 	public Level(LevelCreator levelcreator) {
 		player = levelcreator.getPlayer();
@@ -43,6 +44,7 @@ public class Level {
 
 		tiles = levelcreator.getTiles();
 		entities = levelcreator.getEntities();
+		bullets = new ArrayList<Bullet>();
 
 	}
 
@@ -55,6 +57,9 @@ public class Level {
 		}
 		for (int e = 0; e < entities.size(); e++) {
 			entities.get(e).render();
+		}
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).render();
 		}
 		// portal.render();
 		// drenderMonsters();
@@ -85,6 +90,11 @@ public class Level {
 		}
 		bulletCollision();
 		entityCollision();
+		
+		for (int b = 0; b < bullets.size(); b++){
+			Bullet bullet = bullets.get(b);
+			bullet.update(delta);
+		}
 
 	}
 
@@ -106,15 +116,16 @@ public class Level {
 	}
 
 	public void bulletCollision() {
-		ArrayList<Bullet> bullets = player.p.getBullets();
-		for (int b = 0; b < bullets.size(); b++) {
-			Bullet bullet = (Bullet) bullets.get(b);
+		ArrayList<Bullet> playerBullets = player.p.getBullets();
+		for (int b = 0; b < playerBullets.size(); b++) {
+			Bullet bullet = (Bullet) playerBullets.get(b);
 
 			Line2D p1 = bullet.getBounds();
 
 			/*
 			 * Rectangle r = portal.getBounds(); if (p1.intersects(r)){
-			 * portal.doesDamage(bullet.damage); bullets.remove(b); break; }
+			 * portal.doesDamage(bullet.damage); playerBullets.remove(b); break;
+			 * }
 			 */
 			for (int m = 0; m < entities.size(); m++) {
 				Entity entity = entities.get(m);
@@ -123,7 +134,7 @@ public class Level {
 
 					if (p1.intersects(r1)) {
 						entity.doesDamage(bullet.damage);
-						bullets.remove(b);
+						playerBullets.remove(b);
 						return;
 					}
 				}
@@ -133,12 +144,42 @@ public class Level {
 				if (tile.isSolid) {
 					Rectangle r1 = tile.getBounds();
 					if (p1.intersects(r1)) {
-						bullets.remove(b);									//fix this.. sometimes crashes..... maybe fixed?
+						playerBullets.remove(b); // fix this.. sometimes
+													// crashes..... maybe fixed?
 						break;
 					}
 				}
 			}
 		}
+		
+		for (int b = 0; b < bullets.size(); b++) {
+
+			Bullet bullet = (Bullet) bullets.get(b);
+
+			Line2D p1 = bullet.getBounds();
+			
+			Rectangle r1 = player.getBounds();
+
+			if (p1.intersects(r1)) {
+				player.doesDamage(bullet.damage);
+				bullets.remove(b);
+				return;
+			}
+			
+			
+			for (int t = 0; t < tiles.size(); t++) {
+				Tile tile = tiles.get(t);
+				if (tile.isSolid) {
+					Rectangle r2 = tile.getBounds();
+					if (p1.intersects(r2)) {
+						bullets.remove(b); // fix this.. sometimes crashes.....
+											// maybe fixed?
+						break;
+					}
+				}
+			}
+		}
+		
 	}
 
 	public void entityCollision() {
@@ -158,7 +199,6 @@ public class Level {
 				Rectangle r1 = entity.getBounds();
 				Rectangle r2 = player.getBounds();
 				if (r2.intersects(r1)) {
-					System.out.println(1);
 					player.doesDamage(entity.damage);
 				}
 
@@ -183,7 +223,7 @@ public class Level {
 		}
 		return true;
 	}
-
+	
 	public boolean isInteracting(int x, int y) {
 
 		return false;

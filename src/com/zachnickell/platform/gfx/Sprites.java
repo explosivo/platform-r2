@@ -42,6 +42,8 @@ public class Sprites {
 	public static Texture powerItem;
 	public static Texture explosion;
 	public static Texture rocket;
+	public static Texture bullet;
+	public static Texture burger;
 	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> prismAnim = new ArrayList<Texture>();
@@ -91,6 +93,8 @@ public class Sprites {
 		
 		makeExplosionSprite();
 		makeRocketSprite();
+		makeBulletSprite();
+		makeBurgerSprite();
 		
 		makeMenuUI();
 		
@@ -216,6 +220,12 @@ public class Sprites {
 	}
 	public void makeRocketSprite() {
 		rocket = getImage("rocket.png");
+	}
+	public void makeBulletSprite() {
+		bullet = getImage("bullet.png");
+	}
+	public void makeBurgerSprite() {
+		burger = getImage("burger.png");
 	}
 	
 	public void makeItems() {

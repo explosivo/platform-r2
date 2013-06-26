@@ -22,7 +22,7 @@ public class Portal extends Entity {
 		this.y = y * 16;
 		w = 56;
 		h = 56;
-		maxHealth = 20;
+		maxHealth = 5;
 		health = maxHealth;
 		interacts = false;
 		maxFrame = 6;

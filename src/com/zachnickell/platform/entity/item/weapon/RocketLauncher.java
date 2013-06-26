@@ -4,9 +4,6 @@ import com.zachnickell.platform.entity.Entity;
 
 public class RocketLauncher extends Pistol{
 
-	int tick;
-	boolean canFire = true;
-	
 	
 	public RocketLauncher(Entity owner) {
 		super(owner);
@@ -21,7 +18,7 @@ public class RocketLauncher extends Pistol{
 	
 	public void fire(double angle){
 		if (!canFire){
-			if (tick >= 500){
+			if (tick >= 750){
 				canFire = true;
 				tick = 0;
 			}

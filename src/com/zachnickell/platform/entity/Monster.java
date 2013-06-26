@@ -28,6 +28,7 @@ public class Monster extends Entity {
 	double dx, dy;
 	int currentw;
 	int currenth;
+	boolean isMoving;
 	
 
 	public Monster(int spawnX, int spawnY, Player player,  Portal portal) {
@@ -40,7 +41,7 @@ public class Monster extends Entity {
 		c = Color.BLUE;
 		w = 24;
 		h = 24;
-		speed = 3.0;
+		speed = 3.5;
 		isSolid = true;
 		this.x = (double) spawnX * 16;
 		this.y = (double) spawnY * 16;
@@ -48,6 +49,7 @@ public class Monster extends Entity {
 		health = maxHealth;
 		this.player = player;
 		sprite = Sprites.zombie;
+		isMoving = true;
 	}
 
 	public void render(){
@@ -93,10 +95,10 @@ public class Monster extends Entity {
 	public void update(int delta) {
 		if (isAlive()) {
 			if (currentw < w){
-				currentw ++;
+				currentw += 2;
 			}
 			if (currenth < h){
-				currenth ++;
+				currenth += 2;
 			}
 			lastAlive = System.currentTimeMillis();
 			if (!invincable) {
@@ -165,7 +167,8 @@ public class Monster extends Entity {
 			dx = -Math.sin(angle) * speed;
 			dy = Math.cos(angle) * speed;
 		}
-		moveCheck(dx,dy);
+		if (isMoving)
+			moveCheck(dx,dy);
 	}
 	
 	public void die(){

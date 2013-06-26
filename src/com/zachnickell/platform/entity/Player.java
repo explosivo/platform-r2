@@ -88,7 +88,7 @@ public class Player extends ControllableEntity {
 					* Math.PI / 2;
 			// System.out.println(angle);
 			// lg.getFireAngle();
-			p.update(delta);
+			p.playerUpdate(delta);
 			if (Input.mousePress) {
 				decreaseStamina(1);
 				//lg.fire();
@@ -110,8 +110,8 @@ public class Player extends ControllableEntity {
 				level++;
 				maxStamina += level / 3;
 				maxHealth += level / 2;
-				stamina = maxStamina;
-				health = maxHealth;
+				//stamina = maxStamina;
+				//health = maxHealth;
 				if (speed < maxSpeed) {
 					speed += .005;
 				}
@@ -121,7 +121,7 @@ public class Player extends ControllableEntity {
 				// xp++;
 				// c = Color.white;
 				sprite = Sprites.playerHurt;
-				if (System.currentTimeMillis() - lastTime >= 2000) {
+				if (System.currentTimeMillis() - lastTime >= 350) {
 					invincable = false;
 				}
 			} else

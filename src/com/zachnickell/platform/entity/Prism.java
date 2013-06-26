@@ -8,7 +8,9 @@ public class Prism extends Portal{
 	public Prism(int x, int y) {
 		super(x, y);
 		maxFrame = 3;
-	}
+		maxHealth = 3;
+		maxMonsters = 3;
+		}
 	
 	public void render(){
 		if (shouldRender() && isAlive()){

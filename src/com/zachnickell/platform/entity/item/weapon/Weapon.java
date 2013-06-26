@@ -11,6 +11,8 @@ public class Weapon {
 	int bulletY;
 	Entity owner;
 	boolean firing = false;
+	boolean canFire = true;
+	int tick;
 	
 	
 	public Weapon (Entity owner){

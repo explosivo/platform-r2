@@ -38,31 +38,37 @@ public class Pistol extends Weapon {
 	}
 
 	public void update(int delta) {
+		if (!canFire)
+			tick += delta;
+		for (int i = 0; i < bullet.size(); i++) {
+			//bullet.get(i).update(delta);
+			if (!bullet.get(i).getBounds().intersects(Entity.lvl.renderZone())){
+				bullet.remove(i);
+			}
+		}	
+	}
+	
+	public void playerUpdate(int delta){
+		if (!canFire)
+			tick += delta;
 		for (int i = 0; i < bullet.size(); i++) {
 			bullet.get(i).update(delta);
 			if (!bullet.get(i).getBounds().intersects(Entity.lvl.renderZone())){
 				bullet.remove(i);
 			}
-		}
-		
+		}	
 	}
 
 
 	public void fire() {
-		if (owner.stamina > 0) {
-			super.fire();
+		if (canFire){
 			bullet.add(new Bullet((int) owner.x+owner.w/2, (int) owner.y+owner.h/2, owner.angle));
-		} else
-			ceaseFire();
+			canFire = false;
+		}
 	}
 
 	public void ceaseFire() {
-		if (firing) {
-			super.ceaseFire();
-			x = 0;
-			y = 0;
-			// System.out.println("firing stopped.");
-		}
+		canFire = true;
 	}
 	
 	public ArrayList<Bullet> getBullets(){
