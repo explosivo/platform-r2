@@ -44,6 +44,7 @@ public class Sprites {
 	public static Texture rocket;
 	public static Texture bullet;
 	public static Texture burger;
+	public static Texture rocketLauncher;
 	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> prismAnim = new ArrayList<Texture>();
@@ -233,6 +234,7 @@ public class Sprites {
 		healthItem = getImage("Items/healthItem.png");
 		staminaItem = getImage("Items/staminaItem.png");
 		powerItem = getImage("Items/powerItem.png");
+		rocketLauncher = getImage("Items/Weapons/rocketLauncher.png");
 	}
 	
 	public void makeMenuUI(){

@@ -1,5 +1,6 @@
 package com.zachnickell.platform.entity.item.weapon;
 
+import com.zachnickell.platform.Sounds;
 import com.zachnickell.platform.entity.Entity;
 
 public class RocketLauncher extends Pistol{
@@ -24,7 +25,23 @@ public class RocketLauncher extends Pistol{
 			}
 		}
 		if (canFire){
+			Sounds.fireRocket.play();
 			bullet.add(new Rocket((int) owner.x+owner.w/2, (int) owner.y+owner.h/2, angle));
+			canFire = false;
+		}
+	}
+	
+	
+	public void fire(){
+		if (!canFire){
+			if (tick >= 750){
+				canFire = true;
+				tick = 0;
+			}
+		}
+		if (canFire){
+			Sounds.fireRocket.play();
+			bullet.add(new Rocket((int) owner.x+owner.w/2, (int) owner.y+owner.h/2, owner.angle));
 			canFire = false;
 		}
 	}

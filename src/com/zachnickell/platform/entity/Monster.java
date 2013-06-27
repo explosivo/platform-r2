@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import com.zachnickell.platform.Sounds;
 import com.zachnickell.platform.entity.item.Item;
 import com.zachnickell.platform.gfx.Sprites;
 import com.zachnickell.platform.level.Level;
@@ -29,6 +30,7 @@ public class Monster extends Entity {
 	int currentw;
 	int currenth;
 	boolean isMoving;
+	boolean hasSpoken = false;
 	
 
 	public Monster(int spawnX, int spawnY, Player player,  Portal portal) {
@@ -155,6 +157,13 @@ public class Monster extends Entity {
 				portal.respawn(this);
 				xpAwarded = false;
 			}
+		}
+	}
+	
+	public void zombieNoise(){
+		if (!hasSpoken){
+			Sounds.brains.play();
+			hasSpoken = true;
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.zachnickell.platform.entity.item.weapon;
 
+import java.util.ArrayList;
+
 import com.zachnickell.platform.entity.Entity;
 
 public class Weapon {
@@ -19,6 +21,12 @@ public class Weapon {
 		this.owner = owner;
 	}
 	
+	public void render(){}
+	
+	public void update(int delta){}
+	
+	public void playerUpdate(int delta){}
+	
 	public void getFireAngle(){
 		//fireAngle = owner.angle;
 		//fireAngle = Math.atan2(owner.y - Input.y,
@@ -33,6 +41,11 @@ public class Weapon {
 	
 	public void ceaseFire(){
 		firing = false;
+	}
+
+	public ArrayList<Bullet> getBullets() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

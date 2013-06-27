@@ -80,4 +80,8 @@ public class Bullet {
 		return l;
 	}
 
+	public void explode() {
+		
+	}
+
 }

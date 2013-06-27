@@ -3,7 +3,9 @@ package com.zachnickell.platform.entity.item.weapon;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
+import com.zachnickell.platform.entity.Explosion;
 import com.zachnickell.platform.gfx.Sprites;
+import com.zachnickell.platform.level.Level;
 
 public class Rocket extends Bullet {
 
@@ -43,6 +45,9 @@ public class Rocket extends Bullet {
 		GL11.glColor3f(1, 1, 1);
 	}
 	
+	public void explode(){
+		Level.entities.add(new Explosion(x, y));
+	}
 	
 	public void movement(int delta) {
 		// System.out.println(Math.toDegrees(angle));

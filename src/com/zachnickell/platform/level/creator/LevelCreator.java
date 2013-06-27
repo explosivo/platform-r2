@@ -13,6 +13,7 @@ import com.zachnickell.platform.entity.Portal;
 import com.zachnickell.platform.entity.Prism;
 import com.zachnickell.platform.entity.Robot;
 import com.zachnickell.platform.entity.item.Item;
+import com.zachnickell.platform.entity.item.RocketLauncherItem;
 import com.zachnickell.platform.entity.tile.Tile;
 import com.zachnickell.platform.entity.tile.Wall;
 import com.zachnickell.platform.level.Level;
@@ -89,6 +90,10 @@ public class LevelCreator {
 				}
 				if (color == 0xfffd2e){
 					addEntity(new Item(x, y));
+					addTile(new Tile(x, y));
+				}
+				if (color == 0x7f6a00){
+					addEntity(new RocketLauncherItem(x, y));
 					addTile(new Tile(x, y));
 				}
 			}

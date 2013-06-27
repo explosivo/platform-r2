@@ -6,10 +6,12 @@ import org.lwjgl.opengl.GL11;
 
 import com.zachnickell.platform.Input;
 import com.zachnickell.platform.Platform;
+import com.zachnickell.platform.Sounds;
 import com.zachnickell.platform.entity.item.Inventory;
 import com.zachnickell.platform.entity.item.Item;
 import com.zachnickell.platform.entity.item.weapon.Pistol;
 import com.zachnickell.platform.entity.item.weapon.RocketLauncher;
+import com.zachnickell.platform.entity.item.weapon.Weapon;
 import com.zachnickell.platform.gfx.Sprites;
 
 public class Player extends ControllableEntity {
@@ -20,7 +22,7 @@ public class Player extends ControllableEntity {
 	// public double angle = 0;
 	//public LaserGun lg;
 	//public Pistol p;
-	public RocketLauncher p;
+	public Weapon p;
 	int time;
 	public Inventory inventory;
 	
@@ -42,12 +44,12 @@ public class Player extends ControllableEntity {
 		health = maxHealth;
 		level = 1;
 		//p = new Pistol(this);
-		p = new RocketLauncher(this);
+		p = new Pistol(this);
 		inventory = new Inventory(this);
 	}
 
 	public void render(){
-		if (shouldRender()) {
+		if (shouldRender() && isAlive()) {
 			sprite = Sprites.playerAnim.get(0);
 			sprite = Sprites.playerAnim.get(time);
 			sprite.bind();
@@ -127,12 +129,17 @@ public class Player extends ControllableEntity {
 			} else
 				sprite = Sprites.player;// c = Color.red;
 		}
-		if (!isAlive())
+		if (!isAlive()){
+			if (Platform.running)
+				Sounds.dead.play();
 			Platform.gameOver();
+		}
 	}
 
 	public void doesDamage(int damage) {
 		if (damage > 0 && !invincable) {
+			if(isAlive())
+				Sounds.hurt.play();
 			lastTime = System.currentTimeMillis();
 			health -= damage;
 			//System.out.println(health);

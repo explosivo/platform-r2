@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import com.zachnickell.platform.Sounds;
 import com.zachnickell.platform.entity.Entity;
 import com.zachnickell.platform.entity.Player;
 import com.zachnickell.platform.gfx.Sprites;
@@ -69,6 +70,7 @@ public class Item extends Entity {
 	}
 	
 	public void use(Player owner){
+		Sounds.getItem.play();
 		if (itemNumber == HEALTH) {
 			owner.health += owner.maxHealth/4;
 		}
@@ -78,6 +80,10 @@ public class Item extends Entity {
 		if (itemNumber == POWER) {
 			owner.xp += 5;
 		}
+	}
+	
+	public void notification(){
+		Sounds.getItem.play();
 	}
 	
 

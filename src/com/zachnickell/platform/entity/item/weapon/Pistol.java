@@ -6,6 +6,7 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 
 import com.zachnickell.platform.Input;
+import com.zachnickell.platform.Sounds;
 import com.zachnickell.platform.entity.Entity;
 import com.zachnickell.platform.level.Level;
 
@@ -62,6 +63,7 @@ public class Pistol extends Weapon {
 
 	public void fire() {
 		if (canFire){
+			Sounds.shoot.play();
 			bullet.add(new Bullet((int) owner.x+owner.w/2, (int) owner.y+owner.h/2, owner.angle));
 			canFire = false;
 		}

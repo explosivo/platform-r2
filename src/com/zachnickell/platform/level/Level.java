@@ -144,6 +144,7 @@ public class Level {
 				if (tile.isSolid) {
 					Rectangle r1 = tile.getBounds();
 					if (p1.intersects(r1)) {
+						playerBullets.get(b).explode();
 						playerBullets.remove(b); // fix this.. sometimes
 													// crashes..... maybe fixed?
 						break;
@@ -172,6 +173,7 @@ public class Level {
 				if (tile.isSolid) {
 					Rectangle r2 = tile.getBounds();
 					if (p1.intersects(r2)) {
+						bullets.get(b).explode();
 						bullets.remove(b); // fix this.. sometimes crashes.....
 											// maybe fixed?
 						break;

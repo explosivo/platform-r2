@@ -28,7 +28,7 @@ public class Platform extends Canvas{
 	private static final long serialVersionUID = 1L;
 	public static boolean running = false;
 	public static final String NAME = "Platform-r2";
-	public static final String VERSION = "Alpha 0.0.7";
+	public static final String VERSION = "Alpha 0.5";
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -36,10 +36,9 @@ public class Platform extends Canvas{
 	public static long lastDeltaTime;
 	
 	private Input input;
-	
 	private MainMenu mainmenu;
-	
 	private Level level;
+	private Sounds sounds;
 	
 	Sprites sprites;
 
@@ -94,6 +93,7 @@ public class Platform extends Canvas{
 			input = new Input();
 			running = true;
 			sprites = new Sprites();
+			sounds = new Sounds();
 			//mainmenu = new MainMenu();
 			LevelCreator levelCreator = new LevelCreator();
 			level = new Level(levelCreator);
@@ -151,7 +151,6 @@ public class Platform extends Canvas{
 	}
 
 	public static void gameOver() {
-		System.out.println("dead.");
 		running = false;
 	}
 
