@@ -43,7 +43,6 @@ public class Sprites {
 	public static Texture explosion;
 	public static Texture rocket;
 	public static Texture bullet;
-	public static Texture burger;
 	public static Texture rocketLauncher;
 	public static ArrayList<Texture> playerAnim = new ArrayList<Texture>();
 	public static ArrayList<Texture> portalAnim = new ArrayList<Texture>();
@@ -56,6 +55,16 @@ public class Sprites {
 	
 	public static Texture oldMan;
 	public static Texture portal;
+	
+	//bosses
+	
+	//tubs
+	public static Texture burger;
+	public static ArrayList<Texture> tubsBodyAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> tubsLeftArmAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> tubsRightArmAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> tubsLeftLegAnim = new ArrayList<Texture>();
+	public static ArrayList<Texture> tubsRightLegAnim = new ArrayList<Texture>();
 
 	public Sprites() {
 		
@@ -96,6 +105,8 @@ public class Sprites {
 		makeRocketSprite();
 		makeBulletSprite();
 		makeBurgerSprite();
+		
+		makeTubs();
 		
 		makeMenuUI();
 		
@@ -235,6 +246,19 @@ public class Sprites {
 		staminaItem = getImage("Items/staminaItem.png");
 		powerItem = getImage("Items/powerItem.png");
 		rocketLauncher = getImage("Items/Weapons/rocketLauncher.png");
+	}
+	
+	public void makeTubs(){
+		tubsBodyAnim.add(getImage("boss/tubsAnim/body/1.png"));
+		tubsBodyAnim.add(getImage("boss/tubsAnim/body/2.png"));
+		tubsLeftArmAnim.add(getImage("boss/tubsAnim/leftArm/1.png"));
+		tubsLeftArmAnim.add(getImage("boss/tubsAnim/leftArm/2.png"));
+		tubsRightArmAnim.add(getImage("boss/tubsAnim/rightArm/1.png"));
+		tubsRightArmAnim.add(getImage("boss/tubsAnim/rightArm/2.png"));
+		tubsLeftLegAnim.add(getImage("boss/tubsAnim/leftLeg/1.png"));
+		tubsLeftLegAnim.add(getImage("boss/tubsAnim/leftLeg/2.png"));
+		tubsRightLegAnim.add(getImage("boss/tubsAnim/rightLeg/1.png"));
+		tubsRightLegAnim.add(getImage("boss/tubsAnim/rightLeg/2.png"));
 	}
 	
 	public void makeMenuUI(){

@@ -35,7 +35,6 @@ public class Robot extends Monster{
 			shouldFire = false;
 		if (fireChoice > 950)
 			shouldFire = true;
-		System.out.println(fireChoice);
 		Level.bullets.addAll(rocketLauncher.bullet);
 		rocketLauncher.bullet.clear();
 		rocketLauncher.update(delta);

@@ -133,6 +133,7 @@ public class Level {
 					Rectangle r1 = entity.getBounds();
 
 					if (p1.intersects(r1)) {
+						playerBullets.get(b).explode();
 						entity.doesDamage(bullet.damage);
 						playerBullets.remove(b);
 						return;
